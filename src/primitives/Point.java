@@ -27,7 +27,12 @@ public class Point {
         }
         return new Vector(new Double3(xyz.d1-_p.xyz.d1,xyz.d2-_p.xyz.d2,xyz.d3-_p.xyz.d3));
     }
-
+    public Point add(Vector vector) {
+        return new Point(
+                xyz.d1 + vector.xyz.d1,
+                xyz.d2 + vector.xyz.d2,
+                xyz.d3 + vector.xyz.d3
+        );
 
     @Override
     public boolean equals(Object obj) {

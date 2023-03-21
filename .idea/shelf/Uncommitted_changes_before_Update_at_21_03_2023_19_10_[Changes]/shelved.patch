@@ -1,0 +1,16 @@
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello Aaron!\");\n    }\n}
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	
++++ b/src/Main.java	
+@@ -1,5 +1,5 @@
+ public class Main {
+     public static void main(String[] args) {
+-        System.out.println("Hello Aaron!");
++        System.out.println("Hello Yona!");
+     }
+ }
+\ No newline at end of file
