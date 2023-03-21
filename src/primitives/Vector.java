@@ -2,14 +2,17 @@ package primitives;
 
 public class Vector extends Point{
 
-public Vector(Double3 _xys){ super(_xyz); }
+    Vector(Double3 _xyz){ super(_xyz); }
+
+    public Vector(Double x, Double y, Double z){ super(x ,y ,z); }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj instanceof Ray other)
-            return this.xyz.equals(other.xyz);
-        return false;
+        return super.equals(obj);
     }
 
+    @Override
+    public String toString(){
+        return super.toString();
+    }
 }
