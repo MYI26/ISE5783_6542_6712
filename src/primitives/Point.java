@@ -2,6 +2,11 @@ package primitives;
 
 import static primitives.Util.isZero;
 
+/**
+ * this class serve a point with 3 coordinates, contains an object of three numbers of type Double3
+ *
+ * @author Elhanan Tweig & Yossef Cohen-Salmon
+ */
 public class Point {
 
     Double3 xyz;
@@ -12,13 +17,6 @@ public class Point {
 
     Point(Double3 _xyz) {
         xyz = _xyz;
-    }
-
-    public void normalize() {
-        Double length = Math.sqrt(xyz.d1 * xyz.d1 + xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3);
-        if (length != 0.0) {
-            xyz.reduce(length);
-        }
     }
 
     public Point add(Vector vector) {
@@ -46,6 +44,9 @@ public class Point {
             return ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) + ((z2 - z1) * (z2 - z1));
         }
 
+    public double distance(Point p) {
+        return Math.sqrt(distanceSquared(p));
+    }
 
     @Override
     public boolean equals(Object obj) {

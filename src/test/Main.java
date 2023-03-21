@@ -39,14 +39,14 @@ public final class Main {
             out.println("ERROR: Vector + itself throws wrong exception");
         }
         try {
-            v1.subtract(v1);
+            v1.substract(v1);
             out.println("ERROR: Vector - itself does not throw an exception");
         } catch (IllegalArgumentException ignore) {} catch (Exception ignore) {
             out.println("ERROR: Vector + itself throws wrong exception");
         }
         if (!v1.add(v2).equals(new Vector(-1, -2, -3)))
             out.println("ERROR: Point - Point does not work correctly");
-        if (!v1.subtract(v2).equals(new Vector(3, 6, 9)))
+        if (!v1.substract(v2).equals(new Vector(3, 6, 9)))
             out.println("ERROR: Point - Point does not work correctly");
 
         // test Dot-Product
