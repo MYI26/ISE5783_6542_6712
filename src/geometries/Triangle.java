@@ -11,7 +11,7 @@ import static primitives.Util.alignZero;
 /**
  * this class represents a Triangle
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * Yona and Aaron
  */
 public class Triangle extends Polygon {
     /**

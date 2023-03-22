@@ -11,7 +11,7 @@ import static primitives.Util.isZero;
 /**
  * this class represents a tube defined by ray and radius
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * @author Yona and Aaron
  */
 public class Tube extends RadialGeometry {
     final protected Ray axisRay;

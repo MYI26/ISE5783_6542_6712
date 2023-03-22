@@ -4,7 +4,7 @@ package primitives;
  * Ray class represents the set of points on a line that are on one side of a given point on a line called the head of the fund.
  * Defined by point and direction
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * @author Yona and Aaron
  */
 public class Ray {
     private Point p0;

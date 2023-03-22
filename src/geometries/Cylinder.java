@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * this class represent cylinder defined by like tube (ray and radius) and also with height
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * @author Yona and Aaron
  */
 public class Cylinder extends Tube {
 

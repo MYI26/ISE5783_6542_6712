@@ -5,7 +5,7 @@ import static primitives.Util.isZero;
 /**
  * this class serve a point with 3 coordinates, contains an object of three numbers of type Double3
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * @author Yona and Aaron
  */
 public class Point {
 

@@ -11,7 +11,7 @@ import static primitives.Util.*;
 /**
  * this class represent a plane defined by a point in space and a vertical vector
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * @author Yona and Aaron
  */
 public class Plane implements Geometry {
     final private Point q0;

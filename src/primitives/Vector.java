@@ -3,7 +3,7 @@ package primitives;
 /**
  * This class does operations on vectors
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * @author Yona and Aaron
  */
 public class Vector extends Point{
 
