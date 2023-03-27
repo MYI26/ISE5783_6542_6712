@@ -12,7 +12,7 @@ import static primitives.Util.alignZero;
 /**
  * This class represent a sphere like a ball and defined by point and radius
  *
- * @author Elhanan Tweig & Yossef Cohen-Salmon
+ * @author Yona and Aaron
  */
 public class Sphere extends RadialGeometry {
     final private Point center;
