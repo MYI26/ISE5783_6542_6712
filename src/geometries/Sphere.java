@@ -1,13 +1,7 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import static primitives.Util.alignZero;
 
 /**
  * This class represent a sphere like a ball and defined by point and radius
@@ -56,6 +50,6 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point p) {
-        return p.substract(center).normalize();
+        return p.subtract(center).normalize();
     }
 }

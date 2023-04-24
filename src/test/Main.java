@@ -12,12 +12,10 @@ public final class Main {
 
     /** Main program to tests initial functionality of the 1st stage
      * @param args irrelevant here */
-
-
     public static void main(String[] args) {
 
         try { // test zero vector
-            new Vector(0.0, 0.0, 0.0);
+            new Vector(0.0,0.0,0.0);
             out.println("ERROR: zero vector does not throw an exception");
         } catch (IllegalArgumentException ignore) {} catch (Exception ignore) {
             out.println("ERROR: zero vector throws wrong exception");
@@ -41,14 +39,14 @@ public final class Main {
             out.println("ERROR: Vector + itself throws wrong exception");
         }
         try {
-            v1.substract(v1);
+            v1.subtract(v1);
             out.println("ERROR: Vector - itself does not throw an exception");
         } catch (IllegalArgumentException ignore) {} catch (Exception ignore) {
             out.println("ERROR: Vector + itself throws wrong exception");
         }
         if (!v1.add(v2).equals(new Vector(-1.0, -2.0, -3.0)))
             out.println("ERROR: Point - Point does not work correctly");
-        if (!v1.substract(v2).equals(new Vector(3.0, 6.0, 9.0)))
+        if (!v1.subtract(v2).equals(new Vector(3.0, 6.0, 9.0)))
             out.println("ERROR: Point - Point does not work correctly");
 
         // test Dot-Product
@@ -84,10 +82,9 @@ public final class Main {
         Point p1 = new Point(1.0, 2.0, 3.0);
         if (!(p1.add(new Vector(-1.0, -2.0, -3.0)).equals(new Point(0.0, 0.0, 0.0))))
             out.println("ERROR: Point + Vector does not work correctly");
-        if (!new Vector(1.0, 1.0, 1.0).equals(new Point(2.0, 3.0, 4.0).substract(p1)))
+        if (!new Vector(1.0, 1.0, 1.0).equals(new Point(2.0, 3.0, 4.0).subtract(p1)))
             out.println("ERROR: Point - Point does not work correctly");
 
         out.println("If there were no any other outputs - all tests succeeded!");
     }
 }
-

@@ -4,10 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.List;
-
-import static primitives.Util.isZero;
-
 /**
  * this class represents a tube defined by ray and radius
  *
@@ -46,15 +42,9 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    public Vector getNormal(Point temp)
-
-    {
-        double t = axisRay.getVector().dotProduct(temp.substract(axisRay.getPoint()));
-
-        Point o = axisRay.getPoint().add(axisRay.getVector().scale(t));
-
-        return temp.substract(o).normalize();
-
+    public Vector getNormal(Point p) {
+        double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getPoint()));
+        return p.subtract(axisRay.getPoint(t)).normalize();
     }
 
     @Override

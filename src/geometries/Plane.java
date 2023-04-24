@@ -1,12 +1,7 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
-
-import java.util.List;
-
-import static primitives.Util.*;
 
 /**
  * this class represent a plane defined by a point in space and a vertical vector
@@ -38,8 +33,8 @@ public class Plane implements Geometry {
      */
     public Plane(Point point1, Point point2, Point point3) {
         q0 = point1;
-        Vector v1 = point2.substract(point1);
-        Vector v2 = point3.substract(point1);
+        Vector v1 = point2.subtract(point1);
+        Vector v2 = point3.subtract(point1);
         normal = v1.crossProduct(v2).normalize();
     }
 

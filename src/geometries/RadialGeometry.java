@@ -1,7 +1,7 @@
 package geometries;
 
 public abstract class RadialGeometry implements Geometry{
-    protected d0ouble radius;
+    protected double radius;
 
     RadialGeometry(Double _radius){
         radius = _radius;
