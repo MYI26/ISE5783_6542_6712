@@ -12,31 +12,25 @@ public class Ray {
     private Point p0;
     private Vector dir;
 
-    public Ray(Point _p0, Vector _dir){
+    public Ray(Point _p0, Vector _dir) {
         p0 = _p0;
-        _dir.normalize();
-        dir = _dir;
+        dir = _dir.normalize();
     }
 
-    public Point getPoint()
-    {
+    public Point getPoint() {
         return this.p0;
     }
 
     /**
      * The function returns the calculation of the pont on the ray
      *
-     * @param t distance from the ray head to the point with ray direction
+     * @param _t distance from the ray head to the point with ray direction
      * @return the point
      */
-    public Point getPoint(double t) {
-        return isZero(t) ? p0 : p0.add(dir.scale(t));
+    public Point getPoint(double _t) {
+        return isZero(_t) ? p0 : p0.add(dir.scale(_t));
     }
 
-    public Vector getVector()
-    {
-        return this.dir;
-    }
     /**
      * get the vector on the ray
      *
@@ -47,15 +41,15 @@ public class Ray {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj instanceof Ray other)
+    public boolean equals(Object _obj) {
+        if (this == _obj) return true;
+        if (_obj instanceof Ray other)
             return this.p0.equals(other.p0) && this.dir.equals(other.dir);
         return false;
     }
 
     @Override
     public String toString() {
-        return "coordinate Point: "+p0.toString() +"coordinate Vector: "+dir.toString();
+        return "coordinate Point: " + p0.toString() + "coordinate Vector: " + dir.toString();
     }
 }

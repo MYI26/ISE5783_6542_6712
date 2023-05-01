@@ -9,17 +9,17 @@ import primitives.Vector;
  * @author Yona and Aaron
  */
 public class Sphere extends RadialGeometry {
-    final private Point center;
+    private final Point center;
 
     /**
      * constructor for sphere by point and radius
      *
-     * @param center point
-     * @param radius radius of sphere
+     * @param _center point
+     * @param _radius radius of sphere
      */
-    public Sphere(Point center, Double radius) {
-        super(radius);
-        this.center = center;
+    public Sphere(Point _center, Double _radius) {
+        super(_radius);
+        this.center = _center;
     }
 
     /**
@@ -31,15 +31,6 @@ public class Sphere extends RadialGeometry {
         return center;
     }
 
-    /**
-     * getting radius
-     *
-     * @return radius of sphere
-     */
-    public double getRadius() {
-        return radius;
-    }
-
     @Override
     public String toString() {
         return "Sphere{" +
@@ -49,7 +40,7 @@ public class Sphere extends RadialGeometry {
     }
 
     @Override
-    public Vector getNormal(Point p) {
-        return p.subtract(center).normalize();
+    public Vector getNormal(Point _p) {
+        return _p.subtract(center).normalize();
     }
 }

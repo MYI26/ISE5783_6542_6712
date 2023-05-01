@@ -1,18 +1,16 @@
 package primitives;
 
-import static primitives.Util.isZero;
-
 /**
- * this class serve a point with 3 coordinates, contains an object of three numbers of type Double3
+ * this class serves a point with 3 coordinates, contains an object of three numbers of type Double3
  *
  * @author Yona and Aaron
  */
 public class Point {
 
-    Double3 xyz;
+    final Double3 xyz;
 
-    public Point(Double x, Double y, Double z) {
-        xyz = new Double3(x, y, z);
+    public Point(double _x, double _y, double _z) {
+        xyz = new Double3(_x, _y, _z);
     }
 
     /**
@@ -27,67 +25,55 @@ public class Point {
     /**
      * the function calculates vector plus point
      *
-     * @param _v the vector that we want to add
+     * @param _vector the vector that we want to add
      * @return new point of the result
      */
-   public Point add(Vector _v) {
-       return new Point(xyz.add(_v.xyz));
-   }
+    public Point add(Vector _vector) {
+        return new Point(xyz.add(_vector.xyz));
+    }
 
     /**
      * the function calculates point minus point
      *
-     * @param _p the point that we want to subtract
+     * @param _point the point that we want to subtract
      * @return new point of the result
      */
-    public Vector subtract(Point _p){
-        if(_p.equals(this)){
-            throw new IllegalArgumentException("unable to create a vector with (0,0,0) as coordinate");
-        }
-        return new Vector(new Double3(xyz.d1-_p.xyz.d1,xyz.d2-_p.xyz.d2,xyz.d3-_p.xyz.d3));
+    public Vector subtract(Point _point) {
+        return new Vector(xyz.subtract(_point.xyz));
     }
 
     /**
      * the function calculates the distance by minus between them and pow 2 every value
      *
-     * @param other the second point
+     * @param _point the second point
      * @return the result of the distance in pow 2
      */
-        public Double distanceSquared(Point other) {
-            final Double x1 = xyz.d1;
-            final Double y1 = xyz.d2;
-            final Double z1 = xyz.d3;
-            final Double x2 = other.xyz.d1;
-            final Double y2 = other.xyz.d2;
-            final Double z2 = other.xyz.d3;
-
-            return ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) + ((z2 - z1) * (z2 - z1));
-        }
+    public double distanceSquared(Point _point) {
+        double dx = xyz.d1 - _point.xyz.d1;
+        double dy = xyz.d2 - _point.xyz.d2;
+        double dz = xyz.d3 - _point.xyz.d3;
+        return dx * dx + dy * dy + dz * dz;
+    }
 
     /**
      * the function calculates the distance between 2 points by making root
      * to the value that return from distance squared
      *
-     * @param p the second point
+     * @param _point the second point
      * @return the distance squared between 2 points
      */
-    public double distance(Point p) {
-        return Math.sqrt(distanceSquared(p));
+    public double distance(Point _point) {
+        return Math.sqrt(distanceSquared(_point));
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof Point other))
-            return false;
-        return this.xyz.equals(other.xyz);
+    public boolean equals(Object _obj) {
+        if (this == _obj) return true;
+        return _obj instanceof Point other && this.xyz.equals(other.xyz);
     }
 
     @Override
     public String toString() {
-        return "(" + xyz.d1 + ", " + xyz.d2 + ", " + xyz.d3 + ")";
+        return "(" + xyz + ")";
     }
 }

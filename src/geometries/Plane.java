@@ -9,32 +9,32 @@ import primitives.Vector;
  * @author Yona and Aaron
  */
 public class Plane implements Geometry {
-    final private Point q0;
-    final private Vector normal;
+    private final Point q0;
+    private final Vector normal;
 
     /**
      * constructor for plane by point and vector
      *
-     * @param point  point
-     * @param vector vector of normal
+     * @param _point  point
+     * @param _vector vector of normal
      */
-    public Plane(Point point, Vector vector) {
-        normal = vector.normalize();
-        q0 = point;
+    public Plane(Point _point, Vector _vector) {
+        normal = _vector.normalize();
+        q0 = _point;
     }
 
     /**
      * constructor for plane by 3 points
      *
-     * @param point1 first point in the plane
-     * @param point2 second point in the plane
-     * @param point3 third point in the plane
+     * @param _point1 first point in the plane
+     * @param _point2 second point in the plane
+     * @param _point3 third point in the plane
      * @throws IllegalArgumentException when the points are on the same line
      */
-    public Plane(Point point1, Point point2, Point point3) {
-        q0 = point1;
-        Vector v1 = point2.subtract(point1);
-        Vector v2 = point3.subtract(point1);
+    public Plane(Point _point1, Point _point2, Point _point3) {
+        q0 = _point1;
+        Vector v1 = _point2.subtract(_point1);
+        Vector v2 = _point3.subtract(_point1);
         normal = v1.crossProduct(v2).normalize();
     }
 
@@ -57,7 +57,7 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public Vector getNormal(Point p) {
+    public Vector getNormal(Point _p) {
         return this.normal;
     }
 

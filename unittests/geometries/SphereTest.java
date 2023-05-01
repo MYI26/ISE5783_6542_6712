@@ -1,9 +1,10 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
+import primitives.Point;
+import primitives.Vector;
 
-import static org.junit.jupiter.api.Assertions.*;
-import primitives.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for {@link Sphere} class

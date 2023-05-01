@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import static primitives.Util.*;
 
 /**
  * this class represents a tube defined by ray and radius
@@ -10,17 +11,18 @@ import primitives.Vector;
  * @author Yona and Aaron
  */
 public class Tube extends RadialGeometry {
-    final protected Ray axisRay;
+    protected final Ray axisRay;
+
 
     /**
      * constructor for Tube by ray and radius
      *
-     * @param axisRay the ray
-     * @param radius  the radius
+     * @param _axisRay the ray
+     * @param _radius  the radius
      */
-    public Tube(Ray axisRay, Double radius) {
-        super(radius);
-        this.axisRay = axisRay;
+    public Tube(Ray _axisRay, double _radius) {
+        super(_radius);
+        this.axisRay = _axisRay;
     }
 
     /**
@@ -32,19 +34,10 @@ public class Tube extends RadialGeometry {
         return axisRay;
     }
 
-    /**
-     * get the radius
-     *
-     * @return the radius
-     */
-    public double getRadius() {
-        return radius;
-    }
-
     @Override
-    public Vector getNormal(Point p) {
-        double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getPoint()));
-        return p.subtract(axisRay.getPoint(t)).normalize();
+    public Vector getNormal(Point _p) {
+        double t = axisRay.getDir().dotProduct(_p.subtract(axisRay.getPoint()));
+        return _p.subtract(axisRay.getPoint(t)).normalize();
     }
 
     @Override

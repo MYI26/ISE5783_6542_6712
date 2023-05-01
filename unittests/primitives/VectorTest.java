@@ -3,8 +3,8 @@ package primitives;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static primitives.Util.isZero;
 import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * Unit tests for {@link Vector} class
@@ -59,7 +59,7 @@ class VectorTest {
     }
 
     /**
-     *  Test method for {@link primitives.Vector#crossProduct(primitives.Vector)}.
+     * Test method for {@link primitives.Vector#crossProduct(primitives.Vector)}.
      */
     @Test
     public void testCrossProduct() {

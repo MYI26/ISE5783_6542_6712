@@ -2,7 +2,8 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests for {@link Point} class
@@ -52,7 +53,7 @@ class PointTest {
 
         // =============== Boundary Values Tests ==================
         // TC11: Test that distance from a point to itself works right
-        assertEquals(0,p1.distanceSquared(p1),"ERROR: distanceSquared() wrong value");
+        assertEquals(0, p1.distanceSquared(p1), "ERROR: distanceSquared() wrong value");
     }
 
     /**
@@ -67,6 +68,6 @@ class PointTest {
 
         // =============== Boundary Values Tests ==================
         // TC11: Test that distance from a point to itself works right
-        assertEquals(Math.sqrt(0),p1.distanceSquared(p1),"ERROR: distance() wrong value");
+        assertEquals(Math.sqrt(0), p1.distanceSquared(p1), "ERROR: distance() wrong value");
     }
 }
