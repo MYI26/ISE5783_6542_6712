@@ -99,11 +99,7 @@ public class Vector extends Point {
         if (this == _obj) return true;
         return _obj instanceof Vector other && super.equals(other);
 
-        //if (_obj == null)
-          //  return false;
-        //if (!(_obj instanceof Vector other))
-          //  return false;
-       // return super.equals(other);
+
     }
 
     @Override

@@ -118,4 +118,11 @@ class VectorTest {
         assertThrows(IllegalArgumentException.class, () -> v.crossProduct(u), "TC01: the normalized vector is not parallel to the original one");
         assertEquals(v.length(), v.dotProduct(u), 0.0000001, "TC01: the normalized vector is not parallel to the original one");
     }
+
+    @Test
+    void testSubtract(){
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Test that subtract is proper
+        assertEquals((v1.subtract(v2)), new Vector(1, -1, 5), "TC01: subtract() gave wrong result");
+    }
 }

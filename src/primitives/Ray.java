@@ -9,20 +9,25 @@ import static primitives.Util.isZero;
  * @author Yona and Aaron
  */
 public class Ray {
-    private Point p0;
-    private Vector dir;
+    private final Point p0;
+    private final Vector dir;
 
     public Ray(Point _p0, Vector _dir) {
         p0 = _p0;
         dir = _dir.normalize();
     }
 
+    /**
+     * The function returns the origin point on the ray
+     *
+     * @return the point
+     */
     public Point getPoint() {
         return this.p0;
     }
 
     /**
-     * The function returns the calculation of the pont on the ray
+     * The function returns the calculation of the destination point on the ray after multiplication of the direction by a scalar
      *
      * @param _t distance from the ray head to the point with ray direction
      * @return the point
@@ -43,9 +48,7 @@ public class Ray {
     @Override
     public boolean equals(Object _obj) {
         if (this == _obj) return true;
-        if (_obj instanceof Ray other)
-            return this.p0.equals(other.p0) && this.dir.equals(other.dir);
-        return false;
+        return _obj instanceof Ray other && this.p0.equals(other.p0) && this.dir.equals(other.dir);
     }
 
     @Override

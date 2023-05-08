@@ -11,6 +11,7 @@ public class Point {
 
     public Point(double _x, double _y, double _z) {
         xyz = new Double3(_x, _y, _z);
+
     }
 
     /**

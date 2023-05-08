@@ -23,7 +23,5 @@ class SphereTest {
         Sphere sph = new Sphere(new Point(0., 0., 1.), 1.0);
         assertEquals(new Vector(0, 0, 1), sph.getNormal(new Point(0., 0., 2.)), "TC01: Wrong normal to sphere");
 
-        Sphere sp = new Sphere(new Point(0., 0., 0.), 1.);
-        assertEquals(sp.getNormal(new Point(0., 0., 1.)), new Vector(0, 0, 1), "TC01: Sphere.getNormal() gives wrong normal.");
     }
 }

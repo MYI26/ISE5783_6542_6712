@@ -1,7 +1,14 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
+import static primitives.Util.isZero;
+
+
 
 /**
  * this class represent a plane defined by a point in space and a vertical vector
@@ -67,5 +74,20 @@ public class Plane implements Geometry {
                 "q0=" + q0 +
                 ", normal=" + normal +
                 '}';
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray _ray) {
+        double dotProduct=_ray.getDir().dotProduct(normal);// calculation of the scalar product between the normal plane vector and the ray direction vector
+
+        if(isZero(dotProduct)) return null;//check if the ray is parallel to the plane
+
+        Vector vec = q0.subtract(_ray.getPoint());//calculation of the vector between the point of the ray and the point of the plane
+        double distance = vec.dotProduct(normal)/dotProduct;//calculation of the distance between the origin point of the ray and the intersection point
+        Point intersection;
+        intersection =_ray.getPoint(distance);//calculation of the intersection point
+        List<Point> planeList = new ArrayList<Point>();
+        planeList.add(intersection);
+        return planeList;
     }
 }
