@@ -67,6 +67,8 @@ public class Point {
         return Math.sqrt(distanceSquared(_point));
     }
 
+    public double getX() { return this.xyz.d1;}
+
     @Override
     public boolean equals(Object _obj) {
         if (this == _obj) return true;

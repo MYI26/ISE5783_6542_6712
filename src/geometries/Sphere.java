@@ -1,7 +1,11 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represent a sphere like a ball and defined by point and radius
@@ -42,5 +46,41 @@ public class Sphere extends RadialGeometry {
     @Override
     public Vector getNormal(Point _p) {
         return _p.subtract(center).normalize();
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray _ray) {
+        List<Point> intersectionPoints = new ArrayList<Point>();
+
+        // Calcul du vecteur entre le centre de la sphère et le point de départ du rayon
+        Vector sphereToRay = _ray.getPoint().subtract(center);
+
+        // Calcul du discriminant pour déterminer s'il y a une intersection
+        double a = _ray.getDir().dotProduct(_ray.getDir());
+        double b = 2 * _ray.getDir().dotProduct(sphereToRay);
+        double c = sphereToRay.dotProduct(sphereToRay) - radius * radius;
+        double discriminant = b * b - 4 * a * c;
+
+        // Si le discriminant est négatif, il n'y a pas d'intersection
+        if (discriminant < 0) {
+            return null;
+        }
+
+        // Calcul des points d'intersection
+        double sqrtDiscriminant = Math.sqrt(discriminant);
+        double t1 = (-b + sqrtDiscriminant) / (2 * a);
+        double t2 = (-b - sqrtDiscriminant) / (2 * a);
+
+        if (t1 >= 0) {
+            Point intersection1 = _ray.getPoint(t1);
+            intersectionPoints.add(intersection1);
+        }
+
+        if (t2 >= 0) {
+            Point intersection2 = _ray.getPoint(t2);
+            intersectionPoints.add(intersection2);
+        }
+
+        return intersectionPoints;
     }
 }

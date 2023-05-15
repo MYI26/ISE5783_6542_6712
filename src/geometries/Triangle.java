@@ -53,20 +53,4 @@ public class Triangle extends Polygon {
             if( (u >= 0) && (v >= 0) && (u + v < 1))return list;
             else return  null;
         }
-
-//
-//        double dotProduct=_ray.getDir().dotProduct(normal);// calculation of the scalar product between the normal plane vector and the ray direction vector
-//
-//        if(isZero(dotProduct)) return null;//check if the ray is parallel to the plane
-//
-//        Vector vec = q0.subtract(_ray.getPoint());//calculation of the vector between the point of the ray and the point of the plane
-//        double distance = vec.dotProduct(normal)/dotProduct;//calculation of the distance between the origin point of the ray and the intersection point
-//        Point intersection;
-//        intersection =_ray.getPoint(distance);//calculation of the intersection point
-//        List<Point> planeList = new ArrayList<Point>();
-//        planeList.add(intersection);
-//        return planeList;
     }
-
-
-}
