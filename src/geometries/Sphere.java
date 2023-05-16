@@ -51,9 +51,15 @@ public class Sphere extends RadialGeometry {
     @Override
     public List<Point> findIntersections(Ray _ray) {
         List<Point> intersectionPoints = new ArrayList<Point>();
+        Vector sphereToRay = null;
+        Point intersection = null;
 
         // Calcul du vecteur entre le centre de la sphère et le point de départ du rayon
-        Vector sphereToRay = _ray.getPoint().subtract(center);
+        if(_ray.getPoint() != center)
+            sphereToRay = _ray.getPoint().subtract(center);
+        else{
+            intersection = center.add(_ray.getDir().normalize());;
+            intersectionPoints.add(intersection);}
 
         // Calcul du discriminant pour déterminer s'il y a une intersection
         double a = _ray.getDir().dotProduct(_ray.getDir());
@@ -73,13 +79,18 @@ public class Sphere extends RadialGeometry {
 
         if (t1 >= 0) {
             Point intersection1 = _ray.getPoint(t1);
-            intersectionPoints.add(intersection1);
+            if(intersection1 != _ray.getPoint())
+                intersectionPoints.add(intersection1);
         }
 
         if (t2 >= 0) {
             Point intersection2 = _ray.getPoint(t2);
-            intersectionPoints.add(intersection2);
+            if(intersection2 != _ray.getPoint())
+                intersectionPoints.add(intersection2);
         }
+
+        if(intersectionPoints.isEmpty())
+            return null;
 
         return intersectionPoints;
     }
