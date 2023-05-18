@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -92,8 +93,37 @@ public class Polygon implements Geometry {
         return plane.getNormal();
     }
 
-    @Override
     public List<Point> findIntersections(Ray _ray) {
-        return null;
+        List<Point> intersections = new ArrayList<>();
+
+        // Calcul de l'intersection entre le rayon et le plan du polygone
+        List<Point> planeIntersections = plane.findIntersections(_ray);
+        if (planeIntersections.isEmpty())
+            return intersections;
+
+        Point intersectionPoint = planeIntersections.get(0);
+
+        // Vérification si le point d'intersection se trouve à l'intérieur du polygone
+        if (isPointInsidePolygon(intersectionPoint)) {
+            intersections.add(intersectionPoint);
+        }
+
+        return intersections;
+    }
+
+    private boolean isPointInsidePolygon(Point _point) {
+        Vector v1 = vertices.get(1).subtract(vertices.get(0));
+        Vector v2 = vertices.get(2).subtract(vertices.get(1));
+        Vector normal = v1.crossProduct(v2).normalize();
+
+        for (int i = 0; i < vertices.size(); i++) {
+            Vector edge = vertices.get((i + 1) % vertices.size()).subtract(vertices.get(i));
+            Vector toPoint = _point.subtract(vertices.get(i));
+
+            if (normal.dotProduct(edge.crossProduct(toPoint)) < 0)
+                return false;
+        }
+
+        return true;
     }
 }
