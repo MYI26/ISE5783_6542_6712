@@ -4,8 +4,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static primitives.Util.alignZero;
 
 /**
  * This class represent a sphere like a ball and defined by point and radius
@@ -31,6 +32,7 @@ public class Sphere extends RadialGeometry {
      *
      * @return center of sphere
      */
+    @SuppressWarnings("unused")
     public Point getCenter() {
         return center;
     }
@@ -50,48 +52,23 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public List<Point> findIntersections(Ray _ray) {
-        List<Point> intersectionPoints = new ArrayList<Point>();
-        Vector sphereToRay = null;
-        Point intersection = null;
+        Point p0 = _ray.getPoint();
+        if (p0.equals(center))
+            return List.of(_ray.getPoint(radius));
 
-        // Calcul du vecteur entre le centre de la sphère et le point de départ du rayon
-        if(_ray.getPoint() != center)
-            sphereToRay = _ray.getPoint().subtract(center);
-        else{
-            intersection = center.add(_ray.getDir().normalize());;
-            intersectionPoints.add(intersection);}
+        Vector u = center.subtract(p0);
+        double tm = _ray.getDir().dotProduct(u);
+        double dSquared = u.lengthSquared() - tm * tm;
+        double thSquared = radiusSquared - dSquared;
+        // if the line of the ray is outside or tangent to the sphere - there are no intersections
+        if (alignZero(thSquared) <= 0) return null;
 
-        // Calcul du discriminant pour déterminer s'il y a une intersection
-        double a = _ray.getDir().dotProduct(_ray.getDir());
-        double b = 2 * _ray.getDir().dotProduct(sphereToRay);
-        double c = sphereToRay.dotProduct(sphereToRay) - radius * radius;
-        double discriminant = b * b - 4 * a * c;
+        double th = Math.sqrt(thSquared); // always t1 < t2
+        double t2 = alignZero(tm + th);
+        // if both points are behind the ray head
+        if (t2 <= 0) return null;
 
-        // Si le discriminant est négatif, il n'y a pas d'intersection
-        if (discriminant < 0) {
-            return null;
-        }
-
-        // Calcul des points d'intersection
-        double sqrtDiscriminant = Math.sqrt(discriminant);
-        double t1 = (-b + sqrtDiscriminant) / (2 * a);
-        double t2 = (-b - sqrtDiscriminant) / (2 * a);
-
-        if (t1 >= 0) {
-            Point intersection1 = _ray.getPoint(t1);
-            if(intersection1 != _ray.getPoint())
-                intersectionPoints.add(intersection1);
-        }
-
-        if (t2 >= 0) {
-            Point intersection2 = _ray.getPoint(t2);
-            if(intersection2 != _ray.getPoint())
-                intersectionPoints.add(intersection2);
-        }
-
-        if(intersectionPoints.isEmpty())
-            return null;
-
-        return intersectionPoints;
+        double t1 = alignZero(tm - th);
+        return t1 <= 0 ? List.of(_ray.getPoint(t2)) : List.of(_ray.getPoint(t1), _ray.getPoint(t2));
     }
 }

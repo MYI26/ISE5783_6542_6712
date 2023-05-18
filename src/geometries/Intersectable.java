@@ -12,6 +12,7 @@ public interface Intersectable {
 
     /**
      * return a list of all the intersection point between the ray and the geometry
+     *
      * @param _ray
      * @return
      */

@@ -4,10 +4,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static primitives.Util.isZero;
+import static primitives.Util.alignZero;
 
 /**
  * This class represents a Triangle.
@@ -28,12 +27,9 @@ public class Triangle extends Polygon {
 
     @Override
     public List<Point> findIntersections(Ray _ray) {
-        List<Point> intersections = new ArrayList<>();
-
         List<Point> planeIntersections = plane.findIntersections(_ray);
-        if (planeIntersections == null) {
+        if (planeIntersections == null)
             return null; // No intersection with the plane
-        }
 
         Point p = planeIntersections.get(0); // Intersection point with the plane
 
@@ -52,13 +48,13 @@ public class Triangle extends Polygon {
         // Compute barycentric coordinates
         double invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
         double u = (dot11 * dot02 - dot01 * dot12) * invDenom;
+        if (alignZero(u) <= 0) return null;
         double v = (dot00 * dot12 - dot01 * dot02) * invDenom;
+        if (alignZero(v) <= 0) return null;
 
         // Check if the point is inside the triangle
-        if (u >= 0 && v >= 0 && (u + v) <= 1) {
-            intersections.add(p);
-        }
+        if (alignZero(u + v - 1) >= 0) return null;
 
-        return intersections.isEmpty() ? null : intersections;
+        return planeIntersections;
     }
 }

@@ -12,9 +12,9 @@ import static primitives.Util.isZero;
  * @author Yona Mimoun & Aaron Mimoun
  */
 class VectorTest {
-    private Vector v1 = new Vector(1, 2, 3);
-    private Vector v2 = new Vector(0, 3, -2);
-    private Vector v3 = new Vector(-2, -4, -6);
+    private final Vector v1 = new Vector(1, 2, 3);
+    private final Vector v2 = new Vector(0, 3, -2);
+    private final Vector v3 = new Vector(-2, -4, -6);
 
     /**
      * Test method for {@link primitives.Vector#add(Vector)}.
@@ -120,7 +120,7 @@ class VectorTest {
     }
 
     @Test
-    void testSubtract(){
+    void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test that subtract is proper
         assertEquals((v1.subtract(v2)), new Vector(1, -1, 5), "TC01: subtract() gave wrong result");

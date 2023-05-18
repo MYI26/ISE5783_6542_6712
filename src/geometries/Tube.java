@@ -6,8 +6,6 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Util.*;
-
 /**
  * this class represents a tube defined by ray and radius
  *

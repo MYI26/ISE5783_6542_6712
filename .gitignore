@@ -1,5 +1,8 @@
 ### IntelliJ IDEA ###
-out/
+/out/
+/.idea/shelf/
+/doc/
+/images/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
@@ -27,4 +30,3 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-/.idea/shelf/
