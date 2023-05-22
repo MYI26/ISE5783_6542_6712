@@ -31,6 +31,20 @@ class VectorTest {
     }
 
     /**
+     * Test method for {@link primitives.Vector#subtract(Point)} (Vector)}.
+     */
+    @Test
+    void testSubtract() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Test that subtract is proper
+        assertEquals((v1.subtract(v2)), new Vector(1, -1, 5), "TC01: subtract() gave wrong result");
+
+        // =============== Boundary Values Tests ==================
+        //TC11: Test v1 -v1 throw exception
+        assertThrows(IllegalArgumentException.class, () -> v1.subtract(v1), "TC11: add() gave wrong result");
+    }
+
+    /**
      * Test method for {@link primitives.Vector#scale(double)}.
      */
     @Test
@@ -119,10 +133,4 @@ class VectorTest {
         assertEquals(v.length(), v.dotProduct(u), 0.0000001, "TC01: the normalized vector is not parallel to the original one");
     }
 
-    @Test
-    void testSubtract() {
-        // ============ Equivalence Partitions Tests ==============
-        // TC01: Test that subtract is proper
-        assertEquals((v1.subtract(v2)), new Vector(1, -1, 5), "TC01: subtract() gave wrong result");
-    }
 }

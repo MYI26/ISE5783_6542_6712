@@ -17,7 +17,13 @@ public class Vector extends Point {
         if (Double3.ZERO.equals(xyz)) throw new IllegalArgumentException("ERROR: zero vector");
     }
 
-
+    /**
+     * constructor for the vector
+     *
+     * @param _x first number value
+     * @param _y second number value
+     * @param _z third number value
+     */
     public Vector(double _x, double _y, double _z) {
         super(_x, _y, _z);
         if (Double3.ZERO.equals(xyz)) throw new IllegalArgumentException("ERROR: zero vector");
@@ -98,8 +104,6 @@ public class Vector extends Point {
     public boolean equals(Object _obj) {
         if (this == _obj) return true;
         return _obj instanceof Vector other && super.equals(other);
-
-
     }
 
     @Override

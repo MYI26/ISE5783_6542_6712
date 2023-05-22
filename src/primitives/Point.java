@@ -9,9 +9,15 @@ public class Point {
 
     final Double3 xyz;
 
+    /**
+     * constructor for the Point
+     *
+     * @param _x first number value
+     * @param _y second number value
+     * @param _z third number value
+     */
     public Point(double _x, double _y, double _z) {
         xyz = new Double3(_x, _y, _z);
-
     }
 
     /**
@@ -39,6 +45,7 @@ public class Point {
      * @param _point the point that we want to subtract
      * @return new point of the result
      */
+
     public Vector subtract(Point _point) {
         return new Vector(xyz.subtract(_point.xyz));
     }

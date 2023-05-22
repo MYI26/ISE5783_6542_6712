@@ -14,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class CylinderTest {
 
+    /**
+     * Test method for {@link Cylinder#getNormal(Point)}.
+     */
     @Test
     void testGetNormal() {
         Cylinder cyl = new Cylinder(new Ray(new Point(0, 0, 1), new Vector(0, 1, 0)), 1.0, 1);

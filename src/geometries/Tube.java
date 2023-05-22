@@ -12,8 +12,8 @@ import java.util.List;
  * @author Yona and Aaron
  */
 public class Tube extends RadialGeometry {
-    protected final Ray axisRay;
 
+    protected final Ray axisRay;
 
     /**
      * constructor for Tube by ray and radius
@@ -35,10 +35,26 @@ public class Tube extends RadialGeometry {
         return axisRay;
     }
 
+    /**
+     * getting normal
+     *
+     * @return normal of the tube
+     */
     @Override
     public Vector getNormal(Point _p) {
         double t = axisRay.getDir().dotProduct(_p.subtract(axisRay.getPoint()));
         return _p.subtract(axisRay.getPoint(t)).normalize();
+    }
+
+    /**
+     * getting the intersection's points between the ray with the tube
+     *
+     * @param _ray (Ray)
+     * @return the intersection's points
+     */
+    @Override
+    public List<Point> findIntersections(Ray _ray) {
+        return null;
     }
 
     @Override
@@ -49,8 +65,4 @@ public class Tube extends RadialGeometry {
                 '}';
     }
 
-    @Override
-    public List<Point> findIntersections(Ray _ray) {
-        return null;
-    }
 }

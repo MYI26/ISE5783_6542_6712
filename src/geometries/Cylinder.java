@@ -35,15 +35,11 @@ public class Cylinder extends Tube {
         return this.height;
     }
 
-    @Override
-    public String toString() {
-        return "Cylinder{" +
-                "height=" + height +
-                ", axisRay=" + axisRay +
-                ", radius=" + radius +
-                '}';
-    }
-
+    /**
+     * getting vector normal
+     *
+     * @return vector normal to the cylinder
+     */
     @Override
     public Vector getNormal(Point _point) throws UnsupportedOperationException {
         Point p0 = axisRay.getPoint();
@@ -64,4 +60,14 @@ public class Cylinder extends Tube {
 
         return super.getNormal(_point);
     }
+
+    @Override
+    public String toString() {
+        return "Cylinder{" +
+                "height=" + height +
+                ", axisRay=" + axisRay +
+                ", radius=" + radius +
+                '}';
+    }
+
 }

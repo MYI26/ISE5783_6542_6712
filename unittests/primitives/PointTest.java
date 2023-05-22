@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Yona Mimoun & Aaron Mimoun
  */
 class PointTest {
-    private Point p1 = new Point(1.0, 2.0, 3.0);
+    private final Point p1 = new Point(1.0, 2.0, 3.0);
 
     /**
      * Test method for {@link Point#add(Vector)}.

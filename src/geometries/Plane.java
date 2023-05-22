@@ -58,25 +58,29 @@ public class Plane implements Geometry {
     /**
      * getting normal
      *
-     * @return normal of plane
+     * @return normal of the plane
      */
     public Vector getNormal() {
         return this.normal;
     }
 
+    /**
+     * getting normal
+     *
+     * @param _p
+     * @return normal of plane
+     */
     @Override
     public Vector getNormal(Point _p) {
         return this.normal;
     }
 
-    @Override
-    public String toString() {
-        return "Plane{" +
-                "q0=" + q0 +
-                ", normal=" + normal +
-                '}';
-    }
-
+    /**
+     * getting the intersection's points between the ray with the plane
+     *
+     * @param _ray (Ray)
+     * @return the intersection's points
+     */
     @Override
     public List<Point> findIntersections(Ray _ray) {
         // calculation of the scalar product between the normal plane vector and the ray direction vector
@@ -96,4 +100,13 @@ public class Plane implements Geometry {
         double distance = vec.dotProduct(normal) / dotProduct;
         return alignZero(distance) <= 0 ? null : List.of(_ray.getPoint(distance)); //calculation of the intersection point
     }
+
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "q0=" + q0 +
+                ", normal=" + normal +
+                '}';
+    }
+
 }

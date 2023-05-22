@@ -10,7 +10,8 @@ import static primitives.Util.alignZero;
 
 /**
  * This class represents a Triangle.
- * Yona and Aaron
+ *
+ * @author Yona and Aaron
  */
 public class Triangle extends Polygon {
 
@@ -25,36 +26,35 @@ public class Triangle extends Polygon {
         super(_p1, _p2, _p3);
     }
 
+    /**
+     * getting the intersection's points between the ray with the triangle
+     *
+     * @param _ray (Ray)
+     * @return the intersection's points
+     */
     @Override
     public List<Point> findIntersections(Ray _ray) {
-        List<Point> planeIntersections = plane.findIntersections(_ray);
-        if (planeIntersections == null)
-            return null; // No intersection with the plane
+        List<Point> result = plane.findIntersections(_ray);
+        //Check if the ray intersect the plane.
+        if (result == null) return null;
 
-        Point p = planeIntersections.get(0); // Intersection point with the plane
+        Point p0 = _ray.getPoint();
+        Vector v = _ray.getDir();
+        Vector v1 = vertices.get(0).subtract(p0);
+        Vector v2 = vertices.get(1).subtract(p0);
+        Vector n1 = v1.crossProduct(v2).normalize();
+        double vn1 = alignZero(v.dotProduct(n1));
+        if (vn1 == 0) return null;
 
-        // Calculate vectors for edges of the triangle
-        Vector v0 = vertices.get(2).subtract(vertices.get(0));
-        Vector v1 = vertices.get(1).subtract(vertices.get(0));
-        Vector v2 = p.subtract(vertices.get(0));
+        Vector v3 = vertices.get(2).subtract(p0);
+        Vector n2 = v2.crossProduct(v3).normalize();
+        double vn2 = alignZero(v.dotProduct(n2));
+        if (vn1 * vn2 <= 0) return null;
 
-        // Calculate dot products
-        double dot00 = v0.dotProduct(v0);
-        double dot01 = v0.dotProduct(v1);
-        double dot02 = v0.dotProduct(v2);
-        double dot11 = v1.dotProduct(v1);
-        double dot12 = v1.dotProduct(v2);
+        Vector n3 = v3.crossProduct(v1).normalize();
+        double vn3 = alignZero(v.dotProduct(n3));
+        if (vn1 * vn3 <= 0) return null;
 
-        // Compute barycentric coordinates
-        double invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
-        double u = (dot11 * dot02 - dot01 * dot12) * invDenom;
-        if (alignZero(u) <= 0) return null;
-        double v = (dot00 * dot12 - dot01 * dot02) * invDenom;
-        if (alignZero(v) <= 0) return null;
-
-        // Check if the point is inside the triangle
-        if (alignZero(u + v - 1) >= 0) return null;
-
-        return planeIntersections;
+        return result;
     }
 }

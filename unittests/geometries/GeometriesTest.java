@@ -8,7 +8,13 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * Unit tests for {@link Geometries} class
+ *
+ * @author Yona & Aaron Mimoun
+ */
 public class GeometriesTest {
+
     /**
      * Test method for {@link Geometries#findIntersections(Ray)} (Ray)}.
      */

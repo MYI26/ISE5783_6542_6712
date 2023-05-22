@@ -18,6 +18,11 @@ public abstract class RadialGeometry implements Geometry {
         radiusSquared = _radius * _radius;
     }
 
+    /**
+     * getting radius
+     *
+     * @return radius of the radial geometry
+     */
     @SuppressWarnings("unused")
     public double getRadius() {
         return radius;

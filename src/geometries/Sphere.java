@@ -37,19 +37,22 @@ public class Sphere extends RadialGeometry {
         return center;
     }
 
-    @Override
-    public String toString() {
-        return "Sphere{" +
-                "center=" + center +
-                ", radius=" + radius +
-                '}';
-    }
-
+    /**
+     * getting normal
+     *
+     * @return normal of the sphere
+     */
     @Override
     public Vector getNormal(Point _p) {
         return _p.subtract(center).normalize();
     }
 
+    /**
+     * getting the intersection's points between the ray with the sphere
+     *
+     * @param _ray (Ray)
+     * @return the intersection's points
+     */
     @Override
     public List<Point> findIntersections(Ray _ray) {
         Point p0 = _ray.getPoint();
@@ -71,4 +74,13 @@ public class Sphere extends RadialGeometry {
         double t1 = alignZero(tm - th);
         return t1 <= 0 ? List.of(_ray.getPoint(t2)) : List.of(_ray.getPoint(t1), _ray.getPoint(t2));
     }
+
+    @Override
+    public String toString() {
+        return "Sphere{" +
+                "center=" + center +
+                ", radius=" + radius +
+                '}';
+    }
+
 }

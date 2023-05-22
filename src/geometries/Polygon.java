@@ -16,6 +16,7 @@ import static primitives.Util.isZero;
  * @author Dan
  */
 public class Polygon implements Geometry {
+
     /**
      * List of polygon's vertices
      */
@@ -88,11 +89,22 @@ public class Polygon implements Geometry {
         }
     }
 
+    /**
+     * getting normal
+     *
+     * @return normal of plane
+     */
     @Override
     public Vector getNormal(Point point) {
         return plane.getNormal();
     }
 
+    /**
+     * getting the intersection's points between the ray with the polygon
+     *
+     * @param _ray (Ray)
+     * @return the intersection's points
+     */
     public List<Point> findIntersections(Ray _ray) {
         List<Point> intersections = new ArrayList<>();
 
@@ -111,6 +123,11 @@ public class Polygon implements Geometry {
         return intersections;
     }
 
+    /**
+     * getting true if the point is inside the polygon
+     *
+     * @param _point
+     */
     private boolean isPointInsidePolygon(Point _point) {
         Vector v1 = vertices.get(1).subtract(vertices.get(0));
         Vector v2 = vertices.get(2).subtract(vertices.get(1));
