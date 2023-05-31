@@ -5,6 +5,7 @@
 /images/
 !**/src/main/**/out/
 !**/src/test/**/out/
+/images/
 
 ### Eclipse ###
 .apt_generated

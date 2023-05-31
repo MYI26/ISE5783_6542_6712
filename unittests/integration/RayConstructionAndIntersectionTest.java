@@ -1,9 +1,13 @@
 package integration;
 
-import renderer.Camera;
-import geometries.*;
+import geometries.Intersectable;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
 import org.junit.jupiter.api.Test;
-import primitives.*;
+import primitives.Point;
+import primitives.Vector;
+import renderer.Camera;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
