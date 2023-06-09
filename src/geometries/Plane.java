@@ -15,7 +15,7 @@ import static primitives.Util.isZero;
  *
  * @author Yona and Aaron
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     private final Point q0;
     private final Vector normal;
 

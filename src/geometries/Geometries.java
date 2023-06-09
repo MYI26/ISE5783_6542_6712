@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Yona and Aaron
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
     private final List<Intersectable> geometries = new LinkedList<>();
 
     /**

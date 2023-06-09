@@ -1,8 +1,8 @@
 package renderer;
 
-import scene.Scene;
 import primitives.Color;
 import primitives.Ray;
+import scene.Scene;
 
 /**
  * Abstract class representing a base class for ray tracing algorithms.

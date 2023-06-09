@@ -7,7 +7,7 @@ public class AmbientLight {
     private Color intensity;
 
     public AmbientLight(Color iA, Double3 kA) {
-        intensity=iA.scale(kA);
+        intensity = iA.scale(kA);
     }
 
     public AmbientLight() {

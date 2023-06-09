@@ -1,9 +1,9 @@
 package renderer;
 
-import primitives.Point;
-import scene.Scene;
 import primitives.Color;
+import primitives.Point;
 import primitives.Ray;
+import scene.Scene;
 
 /**
  * Basic ray tracer implementation.
@@ -31,8 +31,10 @@ public class RayTracerBasic extends RayTraceBase {
         return closestPoint == null ? scene.background : calcColor(closestPoint);
 
     }
+
     /**
      * A function to check the color of a point.
+     *
      * @param point The given point.
      * @return The color of the point.
      */

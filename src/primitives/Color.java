@@ -10,7 +10,7 @@ package primitives;
  */
 public class Color {
     /**
-     * The internal fields maintain RGB components as double numbers from 0 to
+     * The internal fields tx`o maintain RGB components as double numbers from 0 to
      * whatever...
      */
     private final Double3 rgb;
@@ -28,8 +28,7 @@ public class Color {
     }
 
     /**
-     * Constructor to generate a color according to RGB components Each component
-     * in
+     * Constructor to generate a color according to RGB components Each component in
      * range 0..255 (for printed white color) or more [for lights]
      *
      * @param r Red component
@@ -37,30 +36,31 @@ public class Color {
      * @param b Blue component
      */
     public Color(double r, double g, double b) {
-        if (r < 0 || g < 0 || b < 0) throw new IllegalArgumentException("Negative color component is illegal");
+        if (r < 0 || g < 0 || b < 0)
+            throw new IllegalArgumentException("Negative color component is illegal");
         rgb = new Double3(r, g, b);
     }
 
+
     /**
-     * Constructor to generate a color according to RGB components Each component
-     * in
+     * Constructor to generate a color according to RGB components Each component in
      * range 0..255 (for printed white color) or more [for lights]
      *
-     * @param _rgb triad of Red/Green/Blue components
+     * @param rgb triad of Red/Green/Blue components
      */
-    private Color(Double3 _rgb) {
-        if (_rgb.d1 < 0 || _rgb.d2 < 0 || _rgb.d3 < 0)
+    private Color(Double3 rgb) {
+        if (rgb.d1 < 0 || rgb.d2 < 0 || rgb.d3 < 0)
             throw new IllegalArgumentException("Negative color component is illegal");
-        rgb = _rgb;
+        this.rgb = rgb;
     }
 
     /**
      * Constructor on base of java.awt.Color object
      *
-     * @param _other java.awt.Color's source object
+     * @param other java.awt.Color's source object
      */
-    public Color(java.awt.Color _other) {
-        rgb = new Double3(_other.getRed(), _other.getGreen(), _other.getBlue());
+    public Color(java.awt.Color other) {
+        rgb = new Double3(other.getRed(), other.getGreen(), other.getBlue());
     }
 
     /**
@@ -79,14 +79,14 @@ public class Color {
     /**
      * Operation of adding this and one or more other colors (by component)
      *
-     * @param _colors one or more other colors to add
+     * @param colors one or more other colors to add
      * @return new Color object which is a result of the operation
      */
-    public Color add(Color... _colors) {
+    public Color add(Color... colors) {
         double rr = rgb.d1;
         double rg = rgb.d2;
         double rb = rgb.d3;
-        for (Color c : _colors) {
+        for (Color c : colors) {
             rr += c.rgb.d1;
             rg += c.rgb.d2;
             rb += c.rgb.d3;
@@ -113,7 +113,8 @@ public class Color {
      * @return new Color object which is the result of the operation
      */
     public Color scale(double k) {
-        if (k < 0.0) throw new IllegalArgumentException("Can't scale a color by a negative number");
+        if (k < 0.0)
+            throw new IllegalArgumentException("Can't scale a color by a negative number");
         return new Color(rgb.scale(k));
     }
 
@@ -124,7 +125,8 @@ public class Color {
      * @return new Color object which is the result of the operation
      */
     public Color reduce(double k) {
-        if (k < 1) throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
+        if (k < 1)
+            throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
         return new Color(rgb.reduce(k));
     }
 
@@ -140,8 +142,4 @@ public class Color {
         return new Color(rgb.d1 / k.d1, rgb.d2 / k.d2, rgb.d3 / k.d3);
     }
 
-    @Override
-    public String toString() {
-        return "rgb:" + rgb;
-    }
 }

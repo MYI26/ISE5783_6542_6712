@@ -11,28 +11,14 @@ import static primitives.Util.isZero;
  * @author Dan Zilberstein
  */
 public class Double3 {
-    /**
-     * First number
-     */
     final double d1;
-    /**
-     * Second number
-     */
     final double d2;
-    /**
-     * Third number
-     */
     final double d3;
 
     /**
      * Zero triad (0,0,0)
      */
     public static final Double3 ZERO = new Double3(0, 0, 0);
-
-    /**
-     * One's triad (1,1,1)
-     */
-    public static final Double3 ONE = new Double3(1, 1, 1);
 
     /**
      * Constructor to initialize Double3 based object with its three number values
@@ -60,12 +46,14 @@ public class Double3 {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj instanceof Double3 other)
-            return isZero(d1 - other.d1)
-                    && isZero(d2 - other.d2)
-                    && isZero(d3 - other.d3);
-        return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Double3))
+            return false;
+        Double3 other = (Double3) obj;
+        return isZero(d1 - other.d1) && isZero(d2 - other.d2) && isZero(d3 - other.d3);
     }
 
     @Override
@@ -101,8 +89,7 @@ public class Double3 {
     }
 
     /**
-     * Scale (multiply) floating point triad by a number into a new triad where
-     * each
+     * Scale (multiply) floating point triad by a number into a new triad where each
      * number is multiplied by the number
      *
      * @param rhs right handle side operand for scaling
@@ -134,26 +121,4 @@ public class Double3 {
         return new Double3(d1 * rhs.d1, d2 * rhs.d2, d3 * rhs.d3);
     }
 
-    /**
-     * Checks whether all the numbers are lower than a test number
-     *
-     * @param k the test number
-     * @return true if all the numbers are less than k, false otherwise
-     */
-
-    public boolean lowerThan(double k) {
-        return d1 < k && d2 < k && d3 < k;
-    }
-
-    /**
-     * Checks whether all the numbers are lower than three numbers in another triad
-     *
-     * @param other other triad
-     * @return true if all the numbers are less that appropriate numbers in
-     * other
-     * triad, false otherwise
-     */
-    public boolean lowerThan(Double3 other) {
-        return d1 < other.d1 && d2 < other.d2 && d3 < other.d3;
-    }
 }

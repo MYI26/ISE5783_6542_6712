@@ -2,12 +2,10 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class RayTest {
     static final Point ZERO_POINT = new Point(0, 0, 0);
@@ -27,6 +25,7 @@ class RayTest {
     @Test
     void testToString() {
     }
+
     @Test
     void findClosestPoint() {
 

@@ -4,7 +4,7 @@ package geometries;
 /**
  * base class who create the radial for every class who need it like sphere, cylinder...
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
     protected final double radius;
     protected final double radiusSquared;
 

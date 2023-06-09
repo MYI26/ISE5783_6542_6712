@@ -4,6 +4,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
 import java.util.MissingResourceException;
 
 public class Camera {
@@ -66,6 +67,7 @@ public class Camera {
         Vector ijV = ijP.subtract(location);
         return new Ray(location, ijV);
     }
+
     /**
      * Sets the image writer for the camera.
      *
@@ -87,6 +89,7 @@ public class Camera {
         this.rayTracer = rayTracer;
         return this;
     }
+
     /**
      * Returns the image writer associated with the camera.
      *
@@ -95,6 +98,7 @@ public class Camera {
     public ImageWriter getImageWriter() {
         return imageWriter;
     }
+
     /**
      * Returns the ray tracer associated with the camera.
      *
@@ -103,11 +107,13 @@ public class Camera {
     public RayTraceBase getRayTracer() {
         return rayTracer;
     }
+
     private final String RESOURCE = "Renderer resource not set";
     private final String CAMERA_CLASS = "Camera";
     private final String IMAGE_WRITER = "Image writer";
     private final String CAMERA = "Camera";
     private final String RAY_TRACER = "Ray tracer";
+
     /**
      * Renders the image using the configured image writer and ray tracer.
      * Throws MissingResourcesException if any of the fields is null.
@@ -123,8 +129,7 @@ public class Camera {
                 throw new MissingResourceException(RESOURCE, CAMERA_CLASS, CAMERA);
             if (rayTracer == null)
                 throw new MissingResourceException(RESOURCE, CAMERA_CLASS, RAY_TRACER);
-        }
-        catch (MissingResourceException e) {
+        } catch (MissingResourceException e) {
             throw new UnsupportedOperationException(e.getMessage());
         }
 
@@ -134,15 +139,17 @@ public class Camera {
             for (int j = 0; j < nX; ++j)
                 this.imageWriter.writePixel(j, i, castRay(nX, nY, j, i));
     }
+
     private Color castRay(int nX, int nY, int j, int i) {
         return this.rayTracer.traceRay(this.constructRay(nX, nY, j, i));
     }
+
     /**
      * Create a grid [over the picture] in the pixel color map. given the grid's
      * step and color.
      *
      * @param interval grid's interval
-     * @param color grid's color
+     * @param color    grid's color
      */
     public void printGrid(int interval, Color color) {
         if (imageWriter == null)
@@ -156,6 +163,7 @@ public class Camera {
             }
         }
     }
+
     /**
      * Produce a rendered image file
      */
