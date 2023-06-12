@@ -9,7 +9,7 @@ import static primitives.Util.isZero;
 /**
  * Unit tests for {@link Vector} class
  *
- * @author Yona Mimoun & Aaron Mimoun
+ * @author Yona Mimoun &amp; Aaron Mimoun
  */
 class VectorTest {
     private final Vector v1 = new Vector(1, 2, 3);
@@ -52,7 +52,6 @@ class VectorTest {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test that the scaled vector has a scaled length
         assertEquals(3 * v1.length(), v1.scale(3).length(), "TC01: scale() gave wrong result");
-
         // =============== Boundary Values Tests ==================
         // TC11: Test that scaling a vector by 0 throws an exception
         assertThrows(IllegalArgumentException.class, () -> v1.scale(0), "TC11: scale() by 0 gave wrong result");

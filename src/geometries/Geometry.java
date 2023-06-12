@@ -2,11 +2,13 @@ package geometries;
 
 import primitives.Color;
 import primitives.Point;
+import primitives.Vector;
 
 /**
  * Geometry interface that is the base interface of all our geometric class like triangle,Sphere...
  */
 public abstract class Geometry extends Intersectable {
+
     /**
      * the color of the geometry
      */
@@ -38,5 +40,5 @@ public abstract class Geometry extends Intersectable {
      * @param _p
      * @return the normal vector
      */
-    public abstract getNormal(Point _p);
+    public abstract Vector getNormal(Point _p);
 }

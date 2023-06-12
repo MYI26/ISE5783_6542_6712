@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Unit tests for {@link Point} class
  *
- * @author Yona Mimoun & Aaron Mimoun
+ * @author Yona Mimoun &amp; Aaron Mimoun
  */
 class PointTest {
     private final Point p1 = new Point(1.0, 2.0, 3.0);

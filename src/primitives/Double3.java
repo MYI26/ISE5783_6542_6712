@@ -11,8 +11,11 @@ import static primitives.Util.isZero;
  * @author Dan Zilberstein
  */
 public class Double3 {
+    /** 1st number */
     final double d1;
+    /** 2nd number */
     final double d2;
+    /** 3rd number */
     final double d3;
 
     /**

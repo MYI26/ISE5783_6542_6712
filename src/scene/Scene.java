@@ -1,14 +1,35 @@
 package scene;
 
-import elements.AmbientLight;
 import geometries.Geometries;
+import lighting.AmbientLight;
 import primitives.Color;
 
+/**
+ * Scene class represents a scene with a background, lights and geometries.
+ *
+ * @author Yona and Aaron Mimoun
+ */
 public class Scene {
-    public String name;
-    public Color background;
-    public AmbientLight ambientLight;
-    public Geometries geometries;
+
+    /**
+     * scene name
+     */
+    public final String name;
+
+    /**
+     * background color - default is black
+     */
+    public Color background = Color.BLACK;
+
+    /**
+     * Ambient light - default is no ambient light
+     */
+    public AmbientLight ambientLight = AmbientLight.NONE;
+
+    /**
+     * geometries- default is no geometries
+     */
+    public Geometries geometries = new Geometries();
 
     /**
      * Constructs a Scene with the specified name and initializes an empty collection of geometries.
@@ -17,11 +38,6 @@ public class Scene {
      */
     public Scene(String _name) {
         name = _name;
-        geometries = new Geometries();
-        // Set the default background color to black
-        background = Color.BLACK;
-        // Set the default ambient light color to black
-        ambientLight = new AmbientLight();
     }
 
     /**

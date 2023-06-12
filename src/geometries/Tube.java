@@ -46,14 +46,8 @@ public class Tube extends RadialGeometry {
         return _p.subtract(axisRay.getPoint(t)).normalize();
     }
 
-    /**
-     * getting the intersection's points between the ray with the tube
-     *
-     * @param _ray (Ray)
-     * @return the intersection's points
-     */
     @Override
-    public List<Point> findIntersections(Ray _ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         return null;
     }
 

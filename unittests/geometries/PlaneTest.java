@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for {@link Plane} class
  *
- * @author Yona & Aaron Mimoun
+ * @author Yona &amp; Aaron Mimoun
  */
 class PlaneTest {
 

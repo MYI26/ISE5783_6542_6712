@@ -64,12 +64,6 @@ public class Plane extends Geometry {
         return this.normal;
     }
 
-    /**
-     * getting normal
-     *
-     * @param _p
-     * @return normal of plane
-     */
     @Override
     public Vector getNormal(Point _p) {
         return this.normal;
@@ -82,23 +76,23 @@ public class Plane extends Geometry {
      * @return the intersection's points
      */
     @Override
-    public List<Point> findIntersections(Ray _ray) {
-        // calculation of the scalar product between the normal plane vector and the ray direction vector
-        double dotProduct = _ray.getDir().dotProduct(normal);
-        //check if the ray is parallel to the plane
-        if (isZero(dotProduct)) return null;
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
+        Point p0 = _ray.getPoint();
+        Vector v = _ray.getDir();
 
-        Vector vec;
-        //calculation of the vector between the point of the ray and the point of the plane
+        Vector u;
         try {
-            vec = q0.subtract(_ray.getPoint());
+            u = q0.subtract(p0);
         } catch (IllegalArgumentException ignore) {
             return null;
         }
 
-        //calculation of the distance between the origin point of the ray and the intersection point
-        double distance = vec.dotProduct(normal) / dotProduct;
-        return alignZero(distance) <= 0 ? null : List.of(_ray.getPoint(distance)); //calculation of the intersection point
+        double nv = normal.dotProduct(v);
+        //ray parallel to plane or ray begins in the same point which appears as the plane's reference point
+        if (isZero(nv)) return null;
+
+        double t = alignZero(normal.dotProduct(u) / nv);
+        return t <= 0 ? null : List.of(new GeoPoint(this, _ray.getPoint(t)));
     }
 
     @Override

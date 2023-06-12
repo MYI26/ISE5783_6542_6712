@@ -45,19 +45,18 @@ public class Geometries extends Intersectable {
      * @return the intersection's points
      */
     @Override
-    public List<Point> findIntersections(Ray _ray) {
-        List<Point> intersections = null;
-
-        for (Intersectable geometry : geometries) {
-            var geometryIntersections = geometry.findIntersections(_ray);
-            if (geometryIntersections != null) {
-                if (intersections == null)
-                    intersections = new LinkedList<>();
-                intersections.addAll(geometryIntersections);
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
+        List<GeoPoint> result = null;
+        for (Intersectable item : geometries) {
+            List<GeoPoint> itemResult = item.findGeoIntersectionsHelper(_ray);
+            if (itemResult != null) {
+                if (result == null)
+                    result = new LinkedList<>(itemResult);
+                else
+                    result.addAll(itemResult);
             }
         }
-
-        return intersections;
+        return result;
     }
 
 }

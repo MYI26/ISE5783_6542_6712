@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 /**
  * Unit tests for {@link Geometries} class
  *
- * @author Yona & Aaron Mimoun
+ * @author Yona &amp; Aaron Mimoun
  */
 public class GeometriesTest {
 

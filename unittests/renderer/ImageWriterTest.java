@@ -15,14 +15,16 @@ class ImageWriterTest {
      */
     @Test
     void writeToImageTest() {
-        ImageWriter imageWriter = new ImageWriter("test", 800, 500);
-        for (int i = 0; i < 800; i++)
-            for (int j = 0; j < 500; j++) {
-                if ((i % 50 == 0) || (j % 50 == 0))
-                    imageWriter.writePixel(i, j, new Color(0, 0, 0));
-                else imageWriter.writePixel(i, j, new Color(204, 255, 153));
-            }
+        final int width = 801;
+        final int height = 501;
+        final int step = 50;
+        final Color color1 = new Color(255, 0, 0);
+        final Color color2 = new Color(204, 255, 153);
 
+        ImageWriter imageWriter = new ImageWriter("test", width, height);
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+                imageWriter.writePixel(i, j, i % step == 0 || j % step == 0 ? color1 : color2);
         imageWriter.writeToImage();
     }
 }

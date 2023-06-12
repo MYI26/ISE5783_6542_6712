@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Unit tests for {@link Tube} class
  *
- * @author Yona & Aaron Mimoun
+ * @author Yona &amp; Aaron Mimoun
  */
 class TubeTest {
 

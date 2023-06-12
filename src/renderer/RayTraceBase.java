@@ -8,7 +8,11 @@ import scene.Scene;
  * Abstract class representing a base class for ray tracing algorithms.
  */
 public abstract class RayTraceBase {
-    protected Scene scene;
+
+    /**
+     * we create a scene
+     */
+    protected final Scene scene;
 
     /**
      * Constructs a RayTraceBase object with the specified scene.

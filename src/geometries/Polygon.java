@@ -90,40 +90,6 @@ public class Polygon extends Geometry {
     }
 
     /**
-     * getting normal
-     *
-     * @return normal of plane
-     */
-    @Override
-    public Vector getNormal(Point point) {
-        return plane.getNormal();
-    }
-
-    /**
-     * getting the intersection's points between the ray with the polygon
-     *
-     * @param _ray (Ray)
-     * @return the intersection's points
-     */
-    public List<Point> findIntersections(Ray _ray) {
-        List<Point> intersections = new ArrayList<>();
-
-        // Calcul de l'intersection entre le rayon et le plan du polygone
-        List<Point> planeIntersections = plane.findIntersections(_ray);
-        if (planeIntersections.isEmpty())
-            return intersections;
-
-        Point intersectionPoint = planeIntersections.get(0);
-
-        // Vérification si le point d'intersection se trouve à l'intérieur du polygone
-        if (isPointInsidePolygon(intersectionPoint)) {
-            intersections.add(intersectionPoint);
-        }
-
-        return intersections;
-    }
-
-    /**
      * getting true if the point is inside the polygon
      *
      * @param _point
@@ -143,4 +109,20 @@ public class Polygon extends Geometry {
 
         return true;
     }
+
+    /**
+     * getting normal
+     *
+     * @return normal of plane
+     */
+    @Override
+    public Vector getNormal(Point point) {
+        return plane.getNormal();
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
+        return null;
+    }
+
 }

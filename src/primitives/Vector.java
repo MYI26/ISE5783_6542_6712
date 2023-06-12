@@ -105,9 +105,4 @@ public class Vector extends Point {
         if (this == _obj) return true;
         return _obj instanceof Vector other && super.equals(other);
     }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

@@ -17,9 +17,9 @@ public class Cylinder extends Tube {
     /**
      * constructor for Cylinder by ray radius and height
      *
-     * @param _axisRay the ray
-     * @param _radius  the radius
-     * @param _height  the height
+     * @param _axisRay the ray (double)
+     * @param _radius  the radius (double)
+     * @param _height  the height (double)
      */
     public Cylinder(Ray _axisRay, double _radius, double _height) {
         super(_axisRay, _radius);
@@ -36,9 +36,10 @@ public class Cylinder extends Tube {
     }
 
     /**
-     * getting vector normal
+     * getting vector normal to the cylinder at point _point
      *
-     * @return vector normal to the cylinder
+     * @param _point (Point)
+     * @return vector normal
      */
     @Override
     public Vector getNormal(Point _point) throws UnsupportedOperationException {

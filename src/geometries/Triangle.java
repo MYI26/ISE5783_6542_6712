@@ -33,10 +33,14 @@ public class Triangle extends Polygon {
      * @return the intersection's points
      */
     @Override
-    public List<Point> findIntersections(Ray _ray) {
-        List<Point> result = plane.findIntersections(_ray);
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
+        List<GeoPoint> result = plane.findGeoIntersectionsHelper(_ray);
+
         //Check if the ray intersect the plane.
         if (result == null) return null;
+
+        for (GeoPoint g : result)
+            g.geometry = this;
 
         Point p0 = _ray.getPoint();
         Vector v = _ray.getDir();

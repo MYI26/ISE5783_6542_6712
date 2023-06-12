@@ -54,25 +54,31 @@ public class Sphere extends RadialGeometry {
      * @return the intersection's points
      */
     @Override
-    public List<Point> findIntersections(Ray _ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
         Point p0 = _ray.getPoint();
-        if (p0.equals(center))
-            return List.of(_ray.getPoint(radius));
+        Vector v = _ray.getDir();
 
-        Vector u = center.subtract(p0);
-        double tm = _ray.getDir().dotProduct(u);
-        double dSquared = u.lengthSquared() - tm * tm;
-        double thSquared = radiusSquared - dSquared;
-        // if the line of the ray is outside or tangent to the sphere - there are no intersections
-        if (alignZero(thSquared) <= 0) return null;
+        Vector u;
+        try {
+            u = center.subtract(p0);
+        } catch (IllegalArgumentException ignore) {
+            return List.of(new GeoPoint(this, _ray.getPoint(radius)));
+        }
 
-        double th = Math.sqrt(thSquared); // always t1 < t2
+        double tm = alignZero(v.dotProduct(u));
+        double dSqr = alignZero(u.lengthSquared() - tm * tm);
+        double thSqr = radius * radius - dSqr;
+        // no intersections : the ray direction is above the sphere
+        if (alignZero(thSqr) <= 0) return null;
+
+        double th = alignZero(Math.sqrt(thSqr));
+
         double t2 = alignZero(tm + th);
-        // if both points are behind the ray head
         if (t2 <= 0) return null;
 
         double t1 = alignZero(tm - th);
-        return t1 <= 0 ? List.of(_ray.getPoint(t2)) : List.of(_ray.getPoint(t1), _ray.getPoint(t2));
+        return t1 <= 0 ? List.of(new GeoPoint(this, _ray.getPoint(t2)))
+                : List.of(new GeoPoint(this, _ray.getPoint(t1)), new GeoPoint(this, _ray.getPoint(t2)));
     }
 
     @Override
