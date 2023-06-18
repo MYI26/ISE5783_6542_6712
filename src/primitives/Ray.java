@@ -77,6 +77,7 @@ public class Ray {
                 : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
 
+
     /**
      * find the closest GeoPoint to the beginning of the ray
      *

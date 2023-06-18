@@ -20,9 +20,9 @@ class RayTest {
     @Test
     void getPointTest() {
         //EP
-        Vector v = new Vector(0,0,1);
+        Vector v = new Vector(0, 0, 1);
         Ray r = new Ray(ZERO_POINT, v);
-        assertEquals(new Point(0.,0.,2.), r.getPoint(2), "TC01: the function getPoint(t) failed");
+        assertEquals(new Point(0., 0., 2.), r.getPoint(2), "TC01: the function getPoint(t) failed");
 
         //BVA
     }

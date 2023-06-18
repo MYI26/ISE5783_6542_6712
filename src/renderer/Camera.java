@@ -228,7 +228,7 @@ public class Camera {
      *
      * @throws UnsupportedOperationException indicating that the method implementation is not yet provided
      */
-    public void renderImage() {
+    public Camera renderImage() {
         if (imageWriter == null)
             throw new MissingResourceException(RESOURCE, CAMERA_CLASS, IMAGE_WRITER);
         if (location == null || vTo == null || vUp == null || vRight == null || width == 0 || height == 0 || distance == 0)
@@ -241,6 +241,7 @@ public class Camera {
         for (int i = 0; i < nY; ++i)
             for (int j = 0; j < nX; ++j)
                 castRay(nX, nY, j, i);
+        return this;
     }
 
     /**

@@ -1,16 +1,13 @@
 package renderer;
 
-import lighting.AmbientLight;
 import geometries.Sphere;
 import geometries.Triangle;
+import lighting.AmbientLight;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
-import renderer.Camera;
-import renderer.ImageWriter;
-import renderer.RayTracerBasic;
 import scene.Scene;
 
 import static java.awt.Color.*;

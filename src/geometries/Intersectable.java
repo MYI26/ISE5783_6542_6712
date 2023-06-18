@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Common abstract class for all graphic objects
@@ -20,10 +21,12 @@ public abstract class Intersectable {
      * @param _ray ray pointing towards the graphic object
      * @return list of intersection {@link Point}s
      */
-    public final List<Point> findIntersections(Ray _ray) {
+    public List<Point> findIntersections(Ray _ray) {
         var geoList = findGeoIntersections(_ray);
-        return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
     }
+
 
     /**
      * find all intersection points {@link Point}
@@ -73,6 +76,10 @@ public abstract class Intersectable {
 
         @Override
         public String toString() {
+            return getString();
+        }
+
+        private String getString() {
             return "GeoPoint{" +
                     "geometry=" + geometry +
                     ", point=" + point +

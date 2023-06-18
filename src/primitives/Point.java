@@ -6,9 +6,13 @@ package primitives;
  * @author Yona and Aaron
  */
 public class Point {
-    /** triad of coordinate values */
+    /**
+     * triad of coordinate values
+     */
     final Double3 xyz;
-    /** The point of the center of coordinates */
+    /**
+     * The point of the center of coordinates
+     */
     public static final Point ZERO = new Point(0, 0, 0);
 
     /**

@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Color;
+import primitives.Material;
 import primitives.Point;
 import primitives.Vector;
 
@@ -8,6 +9,27 @@ import primitives.Vector;
  * Geometry interface that is the base interface of all our geometric class like triangle,Sphere...
  */
 public abstract class Geometry extends Intersectable {
+    private Material material = new Material();
+
+    /**
+     * setter for material
+     *
+     * @param _material the material of the geometry object
+     * @return the geometry object
+     */
+    public Geometry setMaterial(Material _material) {
+        this.material = _material;
+        return this;
+    }
+
+    /**
+     * getter for material
+     *
+     * @return the material of the geometry object
+     */
+    public Material getMaterial() {
+        return material;
+    }
 
     /**
      * the color of the geometry
