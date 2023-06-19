@@ -13,6 +13,9 @@ import java.util.List;
  */
 public class Tube extends RadialGeometry {
 
+    /**
+     * the ray of the principle axe's tube
+     */
     protected final Ray axisRay;
 
     /**

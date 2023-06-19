@@ -1,10 +1,12 @@
 package renderer;
 
-import lighting.LightSource;
-import primitives.*;
-import scene.Scene;
-import geometries.Geometries;
 import geometries.Intersectable.GeoPoint;
+import lighting.LightSource;
+import primitives.Color;
+import primitives.Double3;
+import primitives.Ray;
+import primitives.Vector;
+import scene.Scene;
 
 import java.util.List;
 

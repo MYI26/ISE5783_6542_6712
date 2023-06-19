@@ -226,6 +226,7 @@ public class Camera {
      * Throws MissingResourcesException if any of the fields is null.
      * Throws UnsupportedOperationException as the implementation is not yet provided.
      *
+     * @return the Camera itself
      * @throws UnsupportedOperationException indicating that the method implementation is not yet provided
      */
     public Camera renderImage() {

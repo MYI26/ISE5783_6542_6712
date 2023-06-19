@@ -17,6 +17,9 @@ class RayTest {
      */
     static final Point ZERO_POINT = new Point(0, 0, 0);
 
+    /**
+     * Tests the getPointTest function in Ray class.
+     */
     @Test
     void getPointTest() {
         //EP

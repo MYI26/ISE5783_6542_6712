@@ -8,7 +8,11 @@ import primitives.Color;
  * @author Mimoun^2 Yona and Aaron
  */
 public abstract class Light {
-    protected final Color intensity; //light intensity as Color       //check it
+
+    /**
+     * the intensity of the light represents his color
+     */
+    protected final Color intensity;
 
     /**
      * constructor for light

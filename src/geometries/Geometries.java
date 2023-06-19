@@ -22,7 +22,7 @@ public class Geometries extends Intersectable {
     /**
      * constructor for geometries by all kinds of geometries
      *
-     * @param _geometries
+     * @param _geometries the geometry's shape
      */
     public Geometries(Intersectable... _geometries) {
         add(_geometries);

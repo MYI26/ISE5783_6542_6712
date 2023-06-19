@@ -52,7 +52,13 @@ public abstract class Intersectable {
      * geo point is the point with the geometry object that it's on
      */
     public static class GeoPoint {
+        /**
+         * geometry that we will focus
+         */
         public Geometry geometry;
+        /**
+         * the point of the geometry that we will focus
+         */
         public Point point;
 
         /**

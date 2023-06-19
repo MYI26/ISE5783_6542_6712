@@ -12,6 +12,7 @@ import primitives.Vector;
 public class SpotLight extends PointLight {
 
     private Vector direction;
+    private double narrowBeam = 1;
 
     /**
      * constructor of spotLight
@@ -25,17 +26,25 @@ public class SpotLight extends PointLight {
         this.direction = direction.normalize();
     }
 
+
     @Override
     public Color getIntensity(Point p) {
-        Color pointIntensity = super.getIntensity(p);
-        Vector l = getL(p);
-        double attenuation = l.dotProduct(direction);
-
-        return pointIntensity.scale(Math.max(0, attenuation));
+        //check if it is flashlight
+        if (narrowBeam != 1) {
+            return super.getIntensity(p).scale(Math.pow(Math.max(0, direction.dotProduct(getL(p))), narrowBeam));
+        }
+        return super.getIntensity(p).scale(Math.max(0, direction.dotProduct(getL(p))));
     }
 
-    //bonus
-    public SpotLight setNarrowBeam(int i) {
+
+    /**
+     * setter for narrowBeam
+     *
+     * @param narrowBeam the new value for narrowBeam
+     * @return this light
+     */
+    public SpotLight setNarrowBeam(double narrowBeam) {
+        this.narrowBeam = narrowBeam;
         return this;
     }
 }

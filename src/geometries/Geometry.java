@@ -59,7 +59,7 @@ public abstract class Geometry extends Intersectable {
     /**
      * getNormal is the function who return the normal vector from the point sent as parameter
      *
-     * @param _p
+     * @param _p the Point
      * @return the normal vector
      */
     public abstract Vector getNormal(Point _p);

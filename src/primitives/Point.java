@@ -80,6 +80,11 @@ public class Point {
         return Math.sqrt(distanceSquared(_point));
     }
 
+    /**
+     * function that return the x coordinate of point
+     *
+     * @return the first coordinate of specifically point
+     */
     @SuppressWarnings("unused")
     public double getX() {
         return this.xyz.d1;
