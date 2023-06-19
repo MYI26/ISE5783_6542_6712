@@ -22,12 +22,20 @@ class RayTest {
      */
     @Test
     void getPointTest() {
-        //EP
+
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: the vector of the ray is positive
         Vector v = new Vector(0, 0, 1);
         Ray r = new Ray(ZERO_POINT, v);
         assertEquals(new Point(0., 0., 2.), r.getPoint(2), "TC01: the function getPoint(t) failed");
 
-        //BVA
+        // TC02: the vector of the ray is negative
+        assertEquals(new Point(0., 0., -2.), r.getPoint(-2), "TC01: the function getPoint(t) failed");
+
+        // =============== Boundary Values Tests ==================
+        // TC11: parameter is 0
+        assertEquals(ZERO_POINT, r.getPoint(0), "TC01: the function getPoint(t) failed");
+
     }
 
     /**

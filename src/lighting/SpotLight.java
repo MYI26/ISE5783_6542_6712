@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+import static primitives.Util.alignZero;
+
 /**
  * class for a spotLight - light with direction and position
  *
@@ -29,13 +31,12 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point p) {
+        double dirL = direction.dotProduct(getL(p));
+        if (alignZero(dirL)<=0) return Color.BLACK;
         //check if it is flashlight
-        if (narrowBeam != 1) {
-            return super.getIntensity(p).scale(Math.pow(Math.max(0, direction.dotProduct(getL(p))), narrowBeam));
-        }
-        return super.getIntensity(p).scale(Math.max(0, direction.dotProduct(getL(p))));
+        if (narrowBeam != 1) dirL = Math.pow(dirL, narrowBeam);
+        return super.getIntensity(p).scale(dirL);
     }
-
 
     /**
      * setter for narrowBeam

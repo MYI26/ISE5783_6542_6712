@@ -21,12 +21,11 @@ public abstract class Intersectable {
      * @param _ray ray pointing towards the graphic object
      * @return list of intersection {@link Point}s
      */
-    public List<Point> findIntersections(Ray _ray) {
+    public final List<Point> findIntersections(Ray _ray) {
         var geoList = findGeoIntersections(_ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
     }
-
 
     /**
      * find all intersection points {@link Point}
@@ -59,7 +58,7 @@ public abstract class Intersectable {
         /**
          * the point of the geometry that we will focus
          */
-        public Point point;
+        public final Point point;
 
         /**
          * constructor for GeoPoint
@@ -75,22 +74,15 @@ public abstract class Intersectable {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            GeoPoint geoPoint = (GeoPoint) o;
-            return geometry.equals(geoPoint.geometry) && point.equals(geoPoint.point);
+            return o instanceof GeoPoint geoPoint &&  geometry == geoPoint.geometry && point.equals(geoPoint.point);
         }
 
         @Override
         public String toString() {
-            return getString();
-        }
-
-        private String getString() {
             return "GeoPoint{" +
                     "geometry=" + geometry +
                     ", point=" + point +
                     '}';
         }
-
     }
 }

@@ -9,6 +9,10 @@ import primitives.Vector;
  * Geometry interface that is the base interface of all our geometric class like triangle,Sphere...
  */
 public abstract class Geometry extends Intersectable {
+    /**
+     * the color of the geometry
+     */
+    private Color emission = Color.BLACK;
     private Material material = new Material();
 
     /**
@@ -30,11 +34,6 @@ public abstract class Geometry extends Intersectable {
     public Material getMaterial() {
         return material;
     }
-
-    /**
-     * the color of the geometry
-     */
-    protected Color emission = Color.BLACK;
 
     /**
      * getter for emission

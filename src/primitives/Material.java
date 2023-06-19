@@ -8,17 +8,17 @@ public class Material {
     /**
      * diffuse constant to calculate the final color that we will appear on the image
      */
-    public Double3 kD = new Double3(0.0);
+    public Double3 kD = Double3.ZERO;
 
     /**
      * specular constant to calculate the final color that we will appear on the image
      */
-    public Double3 kS = new Double3(0.0);
+    public Double3 kS = Double3.ZERO;
 
     /**
      * variable of shininess to calculate the correct color that will appear
      */
-    public int nShininess = 0;
+    public int nShininess = 1;
 
     /**
      * setter for kd

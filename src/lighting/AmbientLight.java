@@ -10,7 +10,6 @@ import primitives.Double3;
  */
 public class AmbientLight extends Light {
 
-
     /**
      * the absence of any ambient light
      */
@@ -36,22 +35,5 @@ public class AmbientLight extends Light {
      */
     public AmbientLight(Color iA, double kA) {
         super(iA.scale(kA));
-    }
-
-    /**
-     * Constructs a new instance of ambient light with intensity according to the parameters
-     * The final intensity is iA * kA.
-     */
-    public AmbientLight() {
-        super(Color.BLACK);
-    }
-
-    /**
-     * get the original intensity of the light - I<sub>0</sub>
-     *
-     * @return the intensity of the light
-     */
-    public Color getIntensity() {
-        return intensity;
     }
 }

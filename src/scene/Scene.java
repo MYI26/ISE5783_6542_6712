@@ -36,6 +36,11 @@ public class Scene {
     public Geometries geometries = new Geometries();
 
     /**
+     * A list of all kind of light
+     */
+    public List<LightSource> lights = new LinkedList<>();
+
+    /**
      * Constructs a Scene with the specified name and initializes an empty collection of geometries.
      *
      * @param _name The name of the scene
@@ -78,16 +83,12 @@ public class Scene {
     }
 
     /**
-     * A list of all kind of light
-     */
-    public List<LightSource> lights = new LinkedList<>();
-
-    /**
      * set the scene`s light
      *
      * @param lights new light
      * @return the updated scene itself
      */
+    @SuppressWarnings("unused")
     public Scene setLights(List<LightSource> lights) {
         this.lights = lights;
         return this;

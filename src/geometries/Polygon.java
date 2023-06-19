@@ -89,27 +89,6 @@ public class Polygon extends Geometry {
     }
 
     /**
-     * getting true if the point is inside the polygon
-     *
-     * @param _point
-     */
-    private boolean isPointInsidePolygon(Point _point) {
-        Vector v1 = vertices.get(1).subtract(vertices.get(0));
-        Vector v2 = vertices.get(2).subtract(vertices.get(1));
-        Vector normal = v1.crossProduct(v2).normalize();
-
-        for (int i = 0; i < vertices.size(); i++) {
-            Vector edge = vertices.get((i + 1) % vertices.size()).subtract(vertices.get(i));
-            Vector toPoint = _point.subtract(vertices.get(i));
-
-            if (normal.dotProduct(edge.crossProduct(toPoint)) < 0)
-                return false;
-        }
-
-        return true;
-    }
-
-    /**
      * getting normal
      *
      * @return normal of plane
