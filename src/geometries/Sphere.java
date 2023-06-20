@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -47,22 +48,25 @@ public class Sphere extends RadialGeometry {
         return _p.subtract(center).normalize();
     }
 
-    /**
-     * getting the intersection's points between the ray with the sphere
-     *
-     * @param _ray (Ray)
-     * @return the intersection's points
-     */
+
+
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
-        Point p0 = _ray.getPoint();
-        Vector v = _ray.getDir();
+    public String toString() {
+        return "Sphere{" +
+                "center=" + center +
+                ", radius=" + radius +
+                '}';
+    }
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        Point p0 = ray.getPoint();
+        Vector v = ray.getDir();
 
         Vector u;
         try {
             u = center.subtract(p0);
         } catch (IllegalArgumentException ignore) {
-            return List.of(new GeoPoint(this, _ray.getPoint(radius)));
+            return alignZero(radius - maxDistance) > 0 ? null : List.of(new GeoPoint(this, ray.getPoint(radius)));
         }
 
         double tm = alignZero(v.dotProduct(u));
@@ -77,16 +81,18 @@ public class Sphere extends RadialGeometry {
         if (t2 <= 0) return null;
 
         double t1 = alignZero(tm - th);
-        return t1 <= 0 ? List.of(new GeoPoint(this, _ray.getPoint(t2)))
-                : List.of(new GeoPoint(this, _ray.getPoint(t1)), new GeoPoint(this, _ray.getPoint(t2)));
-    }
-
-    @Override
-    public String toString() {
-        return "Sphere{" +
-                "center=" + center +
-                ", radius=" + radius +
-                '}';
+        if (t1 <= 0) {
+            if (alignZero(t2 - maxDistance) <= 0)
+                return List.of(new GeoPoint(this, ray.getPoint(t2)));
+            return null;
+        } else {
+            List<GeoPoint> result = new LinkedList<>();
+            if (alignZero(t1 - maxDistance) <= 0)
+                result.add(new GeoPoint(this, ray.getPoint(t1)));
+            if (alignZero(t2 - maxDistance) <= 0)
+                result.add(new GeoPoint(this, ray.getPoint(t2)));
+            return result.isEmpty() ? null : result;
+        }
     }
 
 }

@@ -26,6 +26,15 @@ public abstract class Intersectable {
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
     }
+    /** find all intersection points {@link Point}
+     * that intersect with a specific ray{@link Ray} in a range of distance
+     * @param ray ray pointing towards the graphic object
+     * @param maxDistance the maximum distance between the point to the start of the ray
+     * @return immutable list of intersection geo points {@link GeoPoint}
+     */
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
+    }
 
     /**
      * find all intersection points {@link Point}
@@ -33,19 +42,21 @@ public abstract class Intersectable {
      *
      * @param _ray ray pointing towards the graphic object
      * @return immutable list of intersection geo points {@link GeoPoint}
+     *
      */
     public final List<GeoPoint> findGeoIntersections(Ray _ray) {
-        return findGeoIntersectionsHelper(_ray);
+        return findGeoIntersectionsHelper(_ray,Double.POSITIVE_INFINITY);
     }
 
+
     /**
-     * help the func` findGeoIntersections that find all intersection points {@link Point}
-     * that intersect with a specific ray{@link Ray}
-     *
-     * @param _ray ray pointing towards the graphic object
+     * helper of findGeoIntersections
+     * @param ray ray pointing towards the graphic object
+     * @param maxDistance the maximum distance between the point to the start of the ray
      * @return immutable list of intersection geo points {@link GeoPoint}
      */
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray _ray);
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
+
 
     /**
      * geo point is the point with the geometry object that it's on

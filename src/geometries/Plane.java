@@ -69,16 +69,20 @@ public class Plane extends Geometry {
         return this.normal;
     }
 
-    /**
-     * getting the intersection's points between the ray with the plane
-     *
-     * @param _ray (Ray)
-     * @return the intersection's points
-     */
+
+
+
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
-        Point p0 = _ray.getPoint();
-        Vector v = _ray.getDir();
+    public String toString() {
+        return "Plane{" +
+                "q0=" + q0 +
+                ", normal=" + normal +
+                '}';
+    }
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        Point p0 = ray.getPoint();
+        Vector v = ray.getDir();
 
         Vector u;
         try {
@@ -92,15 +96,7 @@ public class Plane extends Geometry {
         if (isZero(nv)) return null;
 
         double t = alignZero(normal.dotProduct(u) / nv);
-        return t <= 0 ? null : List.of(new GeoPoint(this, _ray.getPoint(t)));
-    }
-
-    @Override
-    public String toString() {
-        return "Plane{" +
-                "q0=" + q0 +
-                ", normal=" + normal +
-                '}';
+        return t > 0 && alignZero(t - maxDistance) <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t))) : null;
     }
 
 }

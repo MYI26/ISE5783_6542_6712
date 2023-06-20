@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import primitives.*;
 import scene.Scene;
 
-import static java.awt.Color.BLUE;
-import static java.awt.Color.WHITE;
+import static java.awt.Color.*;
 
 /**
  * Test rendering a basic image

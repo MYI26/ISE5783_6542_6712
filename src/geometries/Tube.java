@@ -49,10 +49,6 @@ public class Tube extends RadialGeometry {
         return _p.subtract(axisRay.getPoint(t)).normalize();
     }
 
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        return null;
-    }
 
     @Override
     public String toString() {
@@ -60,6 +56,10 @@ public class Tube extends RadialGeometry {
                 "axisRay=" + axisRay +
                 ", radius=" + radius +
                 '}';
+    }
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        return null;
     }
 
 }

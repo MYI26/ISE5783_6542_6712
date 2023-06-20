@@ -37,17 +37,13 @@ public class Geometries extends Intersectable {
         this.geometries.addAll(List.of(_geometries));
     }
 
-    /**
-     * getting the intersection's points between the ray with the geometries
-     *
-     * @param _ray (Ray)
-     * @return the intersection's points
-     */
+
+
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> result = null;
         for (Intersectable item : geometries) {
-            List<GeoPoint> itemResult = item.findGeoIntersections(_ray);
+            List<GeoPoint> itemResult = item.findGeoIntersectionsHelper(ray, maxDistance);
             if (itemResult != null) {
                 if (result == null)
                     result = new LinkedList<>(itemResult);

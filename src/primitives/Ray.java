@@ -1,7 +1,6 @@
 package primitives;
 
 import geometries.Intersectable.GeoPoint;
-
 import java.util.List;
 
 import static primitives.Util.isZero;
@@ -13,6 +12,7 @@ import static primitives.Util.isZero;
  * @author Yona and Aaron
  */
 public class Ray {
+    private static final double DELTA = 0.1;
     private final Point p0;
     private final Vector dir;
 
@@ -25,6 +25,20 @@ public class Ray {
     public Ray(Point _p0, Vector _dir) {
         p0 = _p0;
         dir = _dir.normalize();
+    }
+    /**
+     * Constructor for ray with offset
+     *
+     * @param point     original point laying on the surface of the geometry
+     * @param direction normal vector from the geometry
+     */
+    public Ray(Point point, Vector direction, Vector n) {
+        // Compute the offset vector based on the orientation of the normal
+        double nl = direction.dotProduct(n);
+        Vector offset = n.scale(nl > 0 ? DELTA : -DELTA);
+        this.p0 = point.add(offset);
+        this.dir = direction.normalize();
+
     }
 
     /**
