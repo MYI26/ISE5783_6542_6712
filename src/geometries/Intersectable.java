@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  */
 public abstract class Intersectable {
 
+
     /**
      * find all intersection {@link Point}s
      * that intersect with a specific {@link Ray}
@@ -95,5 +96,17 @@ public abstract class Intersectable {
                     ", point=" + point +
                     '}';
         }
+    }
+    /**
+     * Find the closest point to the ray's head.
+     * @param ray The ray to run the function on.
+     * @return The closest point which was found by GeoPoint format (geometry, point).
+     */
+    public GeoPoint findClosestIntersection(Ray ray)
+    {
+        List<GeoPoint> list = findGeoIntersections(ray);
+        if (list == null)
+            return null;
+        return ray.findClosestGeoPoint(list);
     }
 }

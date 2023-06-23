@@ -142,5 +142,23 @@ public class Color {
             throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
         return new Color(rgb.d1 / k.d1, rgb.d2 / k.d2, rgb.d3 / k.d3);
     }
+    public static Color interpolate(Color startColor, Color endColor, double t) {
+        double r = startColor.getRed() + t * (endColor.getRed() - startColor.getRed());
+        double g = startColor.getGreen() + t * (endColor.getGreen() - startColor.getGreen());
+        double b = startColor.getBlue() + t * (endColor.getBlue() - startColor.getBlue());
+
+        return new Color((int) r, (int) g, (int) b);
+    }
+    public double getRed() {
+        return rgb.d1;
+    }
+
+    public double getGreen() {
+        return rgb.d2;
+    }
+
+    public double getBlue() {
+        return rgb.d3;
+    }
 
 }

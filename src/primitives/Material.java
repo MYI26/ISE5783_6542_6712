@@ -4,7 +4,15 @@ package primitives;
  * class foe the material of object represented by its shininess, diffuse and specular
  */
 public class Material {
-
+    public double SnellParameter = 1;
+    /**
+     *
+     */
+    public Double3 kT = Double3.ZERO;
+    /**
+     *
+     */
+    public Double3 kR = Double3.ZERO;
     /**
      * diffuse constant to calculate the final color that we will appear on the image
      */
@@ -72,6 +80,46 @@ public class Material {
      */
     public Material setKs(Double3 _kS) {
         this.kS = _kS;
+        return this;
+    }
+
+    /**
+     *
+     * @param kT
+     * @return
+     */
+    public Material setKt(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }
+
+    /**
+     *
+     * @param kR
+     * @return
+     */
+    public Material setKr(Double3 kR) {
+        this.kR = kR;
+        return this;
+    }
+
+    /**
+     *
+     * @param kT
+     * @return
+     */
+    public Material setKt(double kT) {
+        this.kT = new Double3(kT);
+        return this;
+    }
+
+    /**
+     *
+     * @param kR
+     * @return
+     */
+    public Material setKr(double kR) {
+        this.kR = new Double3(kR);
         return this;
     }
 }
