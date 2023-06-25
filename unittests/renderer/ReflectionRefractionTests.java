@@ -118,9 +118,9 @@ public class ReflectionRefractionTests {
                 new Sphere(new Point(-200, 100, -500), 100d).setEmission(new Color(0, 0, 255)) //
                         .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(0)),
                 new Sphere(new Point(-100, 80, -400), 80d).setEmission(new Color(0, 30, 255)) //
-                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.6)),
+                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(0).setKt(0.6)),
                 new Sphere(new Point(0, 60, -180), 60d).setEmission(new Color(0, 60, 255)) //
-                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(0)),
+                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
                 new Sphere(new Point(100, 40, -120), 40d).setEmission(new Color(0, 90, 255)) //
                         .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(0)),
                 new Sphere(new Point(200, 20, -100), 20d).setEmission(new Color(0, 120, 255)) //
