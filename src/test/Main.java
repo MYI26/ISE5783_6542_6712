@@ -16,9 +16,9 @@ public final class Main {
     /**
      * Main program to tests initial functionality of the 1st stage
      *
-     * @param args irrelevant here
+     * @param _args irrelevant here
      */
-    public static void main(String[] args) {
+    public static void main(String[] _args) {
 
         try { // test zero vector
             new Vector(0.0, 0.0, 0.0);

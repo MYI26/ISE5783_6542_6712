@@ -85,12 +85,12 @@ public class Scene {
     /**
      * set the scene`s light
      *
-     * @param lights new light
+     * @param _lights new light
      * @return the updated scene itself
      */
     @SuppressWarnings("unused")
-    public Scene setLights(List<LightSource> lights) {
-        this.lights = lights;
+    public Scene setLights(List<LightSource> _lights) {
+        this.lights = _lights;
         return this;
     }
 

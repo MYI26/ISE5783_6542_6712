@@ -26,8 +26,8 @@ public abstract class RayTraceBase {
     /**
      * Abstract method to trace a ray and calculate the resulting color.
      *
-     * @param ray The ray to be traced.
+     * @param _ray The ray to be traced.
      * @return The color calculated from tracing the ray.
      */
-    public abstract Color traceRay(Ray ray);
+    public abstract Color traceRay(Ray _ray);
 }

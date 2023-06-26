@@ -19,33 +19,33 @@ public class SpotLight extends PointLight {
     /**
      * constructor of spotLight
      *
-     * @param intensity=the color of the light
-     * @param position=the  position of the light
-     * @param direction=the direction of the light
+     * @param _intensity=the color of the light
+     * @param _position=the  position of the light
+     * @param _direction=the direction of the light
      */
-    public SpotLight(Color intensity, Point position, Vector direction) {
-        super(intensity, position);
-        this.direction = direction.normalize();
+    public SpotLight(Color _intensity, Point _position, Vector _direction) {
+        super(_intensity, _position);
+        this.direction = _direction.normalize();
     }
 
 
     @Override
-    public Color getIntensity(Point p) {
-        double dirL = direction.dotProduct(getL(p));
+    public Color getIntensity(Point _p) {
+        double dirL = direction.dotProduct(getL(_p));
         if (alignZero(dirL) <= 0) return Color.BLACK;
         //check if it is flashlight
         if (narrowBeam != 1) dirL = Math.pow(dirL, narrowBeam);
-        return super.getIntensity(p).scale(dirL);
+        return super.getIntensity(_p).scale(dirL);
     }
 
     /**
      * setter for narrowBeam
      *
-     * @param narrowBeam the new value for narrowBeam
+     * @param _narrowBeam the new value for narrowBeam
      * @return this light
      */
-    public SpotLight setNarrowBeam(double narrowBeam) {
-        this.narrowBeam = narrowBeam;
+    public SpotLight setNarrowBeam(double _narrowBeam) {
+        this.narrowBeam = _narrowBeam;
         return this;
     }
 }

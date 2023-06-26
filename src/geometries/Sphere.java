@@ -57,15 +57,15 @@ public class Sphere extends RadialGeometry {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-        Point p0 = ray.getPoint();
-        Vector v = ray.getDir();
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray, double _maxDistance) {
+        Point p0 = _ray.getPoint();
+        Vector v = _ray.getDir();
 
         Vector u;
         try {
             u = center.subtract(p0);
         } catch (IllegalArgumentException ignore) {
-            return alignZero(radius - maxDistance) > 0 ? null : List.of(new GeoPoint(this, ray.getPoint(radius)));
+            return alignZero(radius - _maxDistance) > 0 ? null : List.of(new GeoPoint(this, _ray.getPoint(radius)));
         }
 
         double tm = alignZero(v.dotProduct(u));
@@ -80,13 +80,13 @@ public class Sphere extends RadialGeometry {
         if (t2 <= 0) return null;
 
         double t1 = alignZero(tm - th);
-        if (alignZero(t1 - maxDistance) > 0) return null;
+        if (alignZero(t1 - _maxDistance) > 0) return null;
 
-        if (alignZero(t2 - maxDistance) <= 0)
-            return t1 <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t2)))
-                    : List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
+        if (alignZero(t2 - _maxDistance) <= 0)
+            return t1 <= 0 ? List.of(new GeoPoint(this, _ray.getPoint(t2)))
+                    : List.of(new GeoPoint(this, _ray.getPoint(t1)), new GeoPoint(this, _ray.getPoint(t2)));
         else
-            return t1 <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t1)));
+            return t1 <= 0 ? null : List.of(new GeoPoint(this, _ray.getPoint(t1)));
     }
 
 }

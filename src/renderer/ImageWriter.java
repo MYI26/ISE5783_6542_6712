@@ -34,16 +34,16 @@ public class ImageWriter {
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
      *
-     * @param imageName the name of jpeg file
-     * @param nX        amount of pixels by Width
-     * @param nY        amount of pixels by height
+     * @param _imageName the name of jpeg file
+     * @param _nX        amount of pixels by Width
+     * @param _nY        amount of pixels by height
      */
-    public ImageWriter(String imageName, int nX, int nY) {
-        this.imageName = imageName;
-        this.nX = nX;
-        this.nY = nY;
+    public ImageWriter(String _imageName, int _nX, int _nY) {
+        this.imageName = _imageName;
+        this.nX = _nX;
+        this.nY = _nY;
 
-        image = new BufferedImage(nX, nY, BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(_nX, _nY, BufferedImage.TYPE_INT_RGB);
     }
 
     // ***************** Getters/Setters ********************** //
@@ -86,12 +86,12 @@ public class ImageWriter {
      * The function writePixel writes a color of a specific pixel into pixel color
      * matrix
      *
-     * @param xIndex X-axis index of the pixel
-     * @param yIndex Y-axis index of the pixel
-     * @param color  final color of the pixel
+     * @param _xIndex X-axis index of the pixel
+     * @param _yIndex Y-axis index of the pixel
+     * @param _color  final color of the pixel
      */
-    public void writePixel(int xIndex, int yIndex, Color color) {
-        image.setRGB(xIndex, yIndex, color.getColor().getRGB());
+    public void writePixel(int _xIndex, int _yIndex, Color _color) {
+        image.setRGB(_xIndex, _yIndex, _color.getColor().getRGB());
     }
 
 }

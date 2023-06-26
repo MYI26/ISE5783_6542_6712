@@ -78,18 +78,18 @@ public abstract class Intersectable {
         /**
          * constructor for GeoPoint
          *
-         * @param geometry the geometry object
-         * @param point    the point
+         * @param _geometry the geometry object
+         * @param _point    the point
          */
-        public GeoPoint(Geometry geometry, Point point) {
-            this.geometry = geometry;
-            this.point = point;
+        public GeoPoint(Geometry _geometry, Point _point) {
+            this.geometry = _geometry;
+            this.point = _point;
         }
 
         @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            return o instanceof GeoPoint geoPoint && geometry == geoPoint.geometry && point.equals(geoPoint.point);
+        public boolean equals(Object _o) {
+            if (this == _o) return true;
+            return _o instanceof GeoPoint geoPoint && geometry == geoPoint.geometry && point.equals(geoPoint.point);
         }
 
         @Override
@@ -104,11 +104,11 @@ public abstract class Intersectable {
     /**
      * Find the closest point to the ray's head.
      *
-     * @param ray The ray to run the function on.
+     * @param _ray The ray to run the function on.
      * @return The closest point which was found by GeoPoint format (geometry, point).
      */
-    public GeoPoint findClosestIntersection(Ray ray) {
-        List<GeoPoint> list = findGeoIntersections(ray);
-        return list == null ? null : ray.findClosestGeoPoint(list);
+    public GeoPoint findClosestIntersection(Ray _ray) {
+        List<GeoPoint> list = findGeoIntersections(_ray);
+        return list == null ? null : _ray.findClosestGeoPoint(list);
     }
 }

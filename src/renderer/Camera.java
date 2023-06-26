@@ -176,22 +176,22 @@ public class Camera {
     /**
      * Sets the image writer for the camera.
      *
-     * @param imageWriter The image writer to set
+     * @param _imageWriter The image writer to set
      * @return This camera object
      */
-    public Camera setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
+    public Camera setImageWriter(ImageWriter _imageWriter) {
+        this.imageWriter = _imageWriter;
         return this;
     }
 
     /**
      * Sets the ray tracer for the camera.
      *
-     * @param rayTracer The ray tracer to set
+     * @param _rayTracer The ray tracer to set
      * @return This camera object
      */
-    public Camera setRayTracer(RayTraceBase rayTracer) {
-        this.rayTracer = rayTracer;
+    public Camera setRayTracer(RayTraceBase _rayTracer) {
+        this.rayTracer = _rayTracer;
         return this;
     }
 
@@ -238,30 +238,31 @@ public class Camera {
     /**
      * the method cast a ray through a pixel and color the pixel with the color of the ray
      *
-     * @param nX number of pixels on X axis in the view plane
-     * @param nY number of pixels on Y axis in the view plane
-     * @param j  X coordinate of the pixel
-     * @param i  Y coordinate of the pixel
+     * @param _nX number of pixels on X axis in the view plane
+     * @param _nY number of pixels on Y axis in the view plane
+     * @param _j  X coordinate of the pixel
+     * @param _i  Y coordinate of the pixel
      */
-    private void castRay(int nX, int nY, int j, int i) {
-        this.imageWriter.writePixel(j, i, this.rayTracer.traceRay(this.constructRay(nX, nY, j, i)));
+    private void castRay(int _nX, int _nY, int _j, int _i) {
+        this.imageWriter.writePixel(_j, _i, this.rayTracer.traceRay(this.constructRay(_nX, _nY, _j, _i)));
     }
 
     /**
      * Create a grid [over the picture] in the pixel color map. given the grid's
      * step and color.
      *
-     * @param interval grid's interval
-     * @param color    grid's color
+     * @param _interval grid's interval
+     * @param color     grid's color
      * @return This camera object
      */
-    public Camera printGrid(int interval, Color color) {
+    public Camera printGrid(int _interval, Color color) {
         if (imageWriter == null)
             throw new MissingResourceException(RESOURCE, CAMERA_CLASS, IMAGE_WRITER);
 
         for (int i = 0; i < imageWriter.getNy(); i++) {
             for (int j = 0; j < imageWriter.getNx(); j++) {
-                if (i % interval == 0 || j % interval == 0) {
+                if (i % _interval == 0 ||
+                        j % _interval == 0) {
                     imageWriter.writePixel(j, i, color);
                 }
             }

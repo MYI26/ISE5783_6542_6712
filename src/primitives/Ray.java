@@ -31,16 +31,16 @@ public class Ray {
     /**
      * Constructor for ray with offset to avoid errors during the lancer of ray
      *
-     * @param point     original point laying on the surface of the geometry
-     * @param direction vector direction - <b>must be normalized</b>
-     * @param n         normal vector from the geometry - <b>must be normalized</b>
+     * @param _point     original point laying on the surface of the geometry
+     * @param _direction vector direction - <b>must be normalized</b>
+     * @param _n         normal vector from the geometry - <b>must be normalized</b>
      */
-    public Ray(Point point, Vector direction, Vector n) {
+    public Ray(Point _point, Vector _direction, Vector _n) {
         // Compute the offset vector based on the orientation of the normal
-        double nl = direction.dotProduct(n);
-        Vector offset = n.scale(nl > 0 ? DELTA : -DELTA);
-        this.p0 = point.add(offset);
-        this.dir = direction;
+        double nl = _direction.dotProduct(_n);
+        Vector offset = _n.scale(nl > 0 ? DELTA : -DELTA);
+        this.p0 = _point.add(offset);
+        this.dir = _direction;
     }
 
     /**
@@ -85,28 +85,28 @@ public class Ray {
     /**
      * Finds the closest point to the ray's head from a collection of points.
      *
-     * @param points The list of all the points.
+     * @param _points The list of all the points.
      * @return The closest point to p0 in the list.
      */
-    public Point findClosestPoint(List<Point> points) {
-        return points == null || points.isEmpty() ? null
-                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    public Point findClosestPoint(List<Point> _points) {
+        return _points == null || _points.isEmpty() ? null
+                : findClosestGeoPoint(_points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
 
 
     /**
      * find the closest GeoPoint to the beginning of the ray
      *
-     * @param geoPoints the geo points
+     * @param _geoPoints the geo points
      * @return the closest GeoPoint
      */
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
-        if (geoPoints == null)
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> _geoPoints) {
+        if (_geoPoints == null)
             return null;
 
         GeoPoint result = null;
         Double closest = Double.POSITIVE_INFINITY;
-        for (GeoPoint p : geoPoints) {
+        for (GeoPoint p : _geoPoints) {
             double temp = p.point.distance(p0);
             if (temp < closest) {
                 closest = temp;
