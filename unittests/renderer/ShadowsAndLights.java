@@ -1,22 +1,35 @@
 package renderer;
 
+import geometries.Geometries;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
+import lighting.DirectionalLight;
+import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
+import primitives.Color;
+import primitives.Material;
+import primitives.Point;
+import primitives.Vector;
+import scene.Scene;
 
 import static java.awt.Color.*;
 
-import geometries.*;
-import lighting.*;
-import primitives.*;
-import renderer.*;
-import scene.Scene;
-
+/**
+ * Testing shadows and lights
+ *
+ * @author Dan
+ */
 public class ShadowsAndLights {
 
-    private Scene  scene  = new Scene("Shadows and Lights");
+    private Scene scene = new Scene("Shadows and Lights");
     private Camera camera = new Camera(new Point(300, 400, 3200), new Vector(-0.1, -0.11, -1), new Vector(0, 9.090909090909090909090, -1))
             .setVPSize(200, 200).setVPDistance(1000)
             .setRayTracer(new RayTracerBasic(scene));
 
+    /**
+     * test the test to verify if the connection between shadows and lights works well
+     */
     @Test
     public void shadowsAndLights() {
         //scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
@@ -24,18 +37,18 @@ public class ShadowsAndLights {
         scene.lights.add( //
                 new SpotLight(new Color(700, 400, 400), new Point(1000, 150, 0), new Vector(-1, 0, 0)) //
                         .setKl(1E-5).setKq(1.5E-7));
-        scene.setBackground(new Color(30,30,30));
+        scene.setBackground(new Color(30, 30, 30));
 
         // Create geometries
         Geometries geometries = new Geometries();
-        Triangle triangle1=(Triangle) new Triangle(
+        Triangle triangle1 = (Triangle) new Triangle(
                 new Point(-100, 0, -100),
                 new Point(0, 0, 0),
                 new Point(0, 300, 0)).setEmission(new Color(100, 0, 0))
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(100));
         geometries.add(triangle1);
 
-        Triangle triangle2=(Triangle) new Triangle(
+        Triangle triangle2 = (Triangle) new Triangle(
                 new Point(0, 0, 0),
                 new Point(0, 300, 0),
                 new Point(100, 0, -100)).setEmission(new Color(100, 0, 0))
@@ -62,7 +75,7 @@ public class ShadowsAndLights {
                 .setMaterial(new Material().setKd(0.2).setKs(0.2).setKt(0.99).setShininess(30));
         geometries.add(sphere3);
 
-        Plane plane1=(Plane) new Plane(new Point(0,150,-1200),new Vector(0,0,1))
+        Plane plane1 = (Plane) new Plane(new Point(0, 150, -1200), new Vector(0, 0, 1))
                 .setEmission(new Color(BLACK))
                 .setMaterial(new Material().setKd(.1).setKs(0.1).setKt(0.).setShininess(800).setKr(0.4));
         geometries.add(plane1);
@@ -73,56 +86,14 @@ public class ShadowsAndLights {
         geometries.add(sphere4);
 
         Sphere sphere5 = (Sphere) new Sphere(new Point(-100, 90, 1000), 70.)
-                .setEmission(new Color(0,78,120))
+                .setEmission(new Color(0, 78, 120))
                 .setMaterial(new Material().setKd(0.3).setKs(0.3).setKt(0.).setShininess(300));
         geometries.add(sphere5);
 
-        Plane plane2=(Plane) new Plane(new Point(0,0,0),new Vector(0,1,0))
-                .setEmission(new Color(0,34,43))
+        Plane plane2 = (Plane) new Plane(new Point(0, 0, 0), new Vector(0, 1, 0))
+                .setEmission(new Color(0, 34, 43))
                 .setMaterial(new Material().setKd(0.3).setKs(0.3).setKt(0.).setShininess(200).setKr(0.4));
         geometries.add(plane2);
-
-
-/*
-        // Plan
-        Plane plane = (Plane) new Plane(
-                new Point(0, 0, -200),
-                new Vector(300, 0, 300))
-                .setEmission(new Color(245, 245, 50))
-                .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
-        geometries.add(plane);
-
-        // Spheres
-        Sphere sphere1 = (Sphere) new Sphere(new Point(-100, 100, -80), 40.)
-                .setEmission(new Color(255, 0, 0))
-                .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
-        geometries.add(sphere1);
-
-        Sphere sphere2 = (Sphere) new Sphere(new Point(100, 100, -120), 60.)
-                .setEmission(new Color(0, 255, 0))
-                .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
-        geometries.add(sphere2);
-
-        Sphere sphere3 = (Sphere) new Sphere(new Point(0, -100, -100), 80.0)
-                .setEmission(new Color(0, 0, 255))
-                .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
-        geometries.add(sphere3);
-
-        // Additional forms
-        Cylinder cylinder = (Cylinder) new Cylinder(
-                new Ray(new Point(-70, -70, -150), new Vector(0, 1, 0)),
-                30, 100)
-                .setEmission(new Color(255, 255, 0))
-                .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
-        geometries.add(cylinder);
-
-        Triangle triangle = (Triangle) new Triangle(
-                new Point(-150, 0, -150),
-                new Point(-100, -100, -150),
-                new Point(-50, 0, -150))
-                .setEmission(new Color(255, 0, 255))
-                .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
-        geometries.add(triangle);*/
 
         scene.geometries = geometries;
 

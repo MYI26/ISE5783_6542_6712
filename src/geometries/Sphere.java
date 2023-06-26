@@ -4,7 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -49,7 +48,6 @@ public class Sphere extends RadialGeometry {
     }
 
 
-
     @Override
     public String toString() {
         return "Sphere{" +
@@ -57,6 +55,7 @@ public class Sphere extends RadialGeometry {
                 ", radius=" + radius +
                 '}';
     }
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         Point p0 = ray.getPoint();
@@ -81,18 +80,13 @@ public class Sphere extends RadialGeometry {
         if (t2 <= 0) return null;
 
         double t1 = alignZero(tm - th);
-        if (t1 <= 0) {
-            if (alignZero(t2 - maxDistance) <= 0)
-                return List.of(new GeoPoint(this, ray.getPoint(t2)));
-            return null;
-        } else {
-            List<GeoPoint> result = new LinkedList<>();
-            if (alignZero(t1 - maxDistance) <= 0)
-                result.add(new GeoPoint(this, ray.getPoint(t1)));
-            if (alignZero(t2 - maxDistance) <= 0)
-                result.add(new GeoPoint(this, ray.getPoint(t2)));
-            return result.isEmpty() ? null : result;
-        }
+        if (alignZero(t1 - maxDistance) > 0) return null;
+
+        if (alignZero(t2 - maxDistance) <= 0)
+            return t1 <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t2)))
+                    : List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
+        else
+            return t1 <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t1)));
     }
 
 }

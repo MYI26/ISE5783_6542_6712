@@ -205,16 +205,6 @@ public class Camera {
         return imageWriter;
     }
 
-    /**
-     * Returns the ray tracer associated with the camera.
-     *
-     * @return The ray tracer
-     */
-    @SuppressWarnings("unused")
-    public RayTraceBase getRayTracer() {
-        return rayTracer;
-    }
-
     private final String RESOURCE = "Renderer resource not set";
     private final String CAMERA_CLASS = "Camera";
     private final String IMAGE_WRITER = "Image writer";
@@ -263,8 +253,9 @@ public class Camera {
      *
      * @param interval grid's interval
      * @param color    grid's color
+     * @return This camera object
      */
-    public void printGrid(int interval, Color color) {
+    public Camera printGrid(int interval, Color color) {
         if (imageWriter == null)
             throw new MissingResourceException(RESOURCE, CAMERA_CLASS, IMAGE_WRITER);
 
@@ -275,6 +266,7 @@ public class Camera {
                 }
             }
         }
+        return this;
     }
 
     /**

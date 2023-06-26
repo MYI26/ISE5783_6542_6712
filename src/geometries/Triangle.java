@@ -29,7 +29,7 @@ public class Triangle extends Polygon {
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray _ray, double _maxDistance) {
-        List<GeoPoint> result = plane.findGeoIntersectionsHelper(_ray, _maxDistance);
+        var result = plane.findGeoIntersectionsHelper(_ray, _maxDistance);
 
         //Check if the ray intersect the plane.
         if (result == null) return null;

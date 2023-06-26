@@ -32,7 +32,7 @@ public class SpotLight extends PointLight {
     @Override
     public Color getIntensity(Point p) {
         double dirL = direction.dotProduct(getL(p));
-        if (alignZero(dirL)<=0) return Color.BLACK;
+        if (alignZero(dirL) <= 0) return Color.BLACK;
         //check if it is flashlight
         if (narrowBeam != 1) dirL = Math.pow(dirL, narrowBeam);
         return super.getIntensity(p).scale(dirL);

@@ -142,6 +142,15 @@ public class Color {
             throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
         return new Color(rgb.d1 / k.d1, rgb.d2 / k.d2, rgb.d3 / k.d3);
     }
+
+    /**
+     * function helper to create a color gradient
+     *
+     * @param startColor the initial color
+     * @param endColor   the color added
+     * @param t          coefficient of the gradient
+     * @return the graded color
+     */
     public static Color interpolate(Color startColor, Color endColor, double t) {
         double r = startColor.getRed() + t * (endColor.getRed() - startColor.getRed());
         double g = startColor.getGreen() + t * (endColor.getGreen() - startColor.getGreen());
@@ -149,14 +158,30 @@ public class Color {
 
         return new Color((int) r, (int) g, (int) b);
     }
+
+    /**
+     * function helper to get the part red of the rgb
+     *
+     * @return the red value of Double3 rgb
+     */
     public double getRed() {
         return rgb.d1;
     }
 
+    /**
+     * function helper to get the part green of the rgb
+     *
+     * @return the green value of Double3 rgb
+     */
     public double getGreen() {
         return rgb.d2;
     }
 
+    /**
+     * function helper to get the part blue of the rgb
+     *
+     * @return the blue value of Double3 rgb
+     */
     public double getBlue() {
         return rgb.d3;
     }

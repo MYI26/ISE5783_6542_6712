@@ -1,17 +1,28 @@
 package renderer;
 
-import static java.awt.Color.*;
-
+import geometries.Geometries;
+import geometries.Plane;
+import geometries.Polygon;
+import geometries.Sphere;
+import lighting.AmbientLight;
+import lighting.DirectionalLight;
 import org.junit.jupiter.api.Test;
-
-import geometries.*;
-import lighting.*;
-import primitives.*;
-import renderer.*;
+import primitives.Color;
+import primitives.Material;
+import primitives.Point;
+import primitives.Vector;
 import scene.Scene;
 
+/**
+ * A class to test a personal image added.
+ *
+ * @author Yona And Aaron Mimoun
+ */
 public class CustomImageGenerator {
 
+    /**
+     * A test to test a personal image
+     */
     @Test
     public void generateCustomImage() {
         int width = 400;

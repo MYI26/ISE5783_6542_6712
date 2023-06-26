@@ -69,9 +69,6 @@ public class Plane extends Geometry {
         return this.normal;
     }
 
-
-
-
     @Override
     public String toString() {
         return "Plane{" +
@@ -79,6 +76,7 @@ public class Plane extends Geometry {
                 ", normal=" + normal +
                 '}';
     }
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         Point p0 = ray.getPoint();
@@ -96,7 +94,9 @@ public class Plane extends Geometry {
         if (isZero(nv)) return null;
 
         double t = alignZero(normal.dotProduct(u) / nv);
-        return t > 0 && alignZero(t - maxDistance) <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t))) : null;
+        return t > 0 && alignZero(t - maxDistance) <= 0
+                ? List.of(new GeoPoint(this, ray.getPoint(t)))
+                : null;
     }
 
 }

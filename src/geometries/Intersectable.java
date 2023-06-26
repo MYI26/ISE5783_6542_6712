@@ -27,9 +27,12 @@ public abstract class Intersectable {
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
     }
-    /** find all intersection points {@link Point}
+
+    /**
+     * find all intersection points {@link Point}
      * that intersect with a specific ray{@link Ray} in a range of distance
-     * @param ray ray pointing towards the graphic object
+     *
+     * @param ray         ray pointing towards the graphic object
      * @param maxDistance the maximum distance between the point to the start of the ray
      * @return immutable list of intersection geo points {@link GeoPoint}
      */
@@ -43,16 +46,16 @@ public abstract class Intersectable {
      *
      * @param _ray ray pointing towards the graphic object
      * @return immutable list of intersection geo points {@link GeoPoint}
-     *
      */
     public final List<GeoPoint> findGeoIntersections(Ray _ray) {
-        return findGeoIntersectionsHelper(_ray,Double.POSITIVE_INFINITY);
+        return findGeoIntersectionsHelper(_ray, Double.POSITIVE_INFINITY);
     }
 
 
     /**
      * helper of findGeoIntersections
-     * @param ray ray pointing towards the graphic object
+     *
+     * @param ray         ray pointing towards the graphic object
      * @param maxDistance the maximum distance between the point to the start of the ray
      * @return immutable list of intersection geo points {@link GeoPoint}
      */
@@ -86,7 +89,7 @@ public abstract class Intersectable {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            return o instanceof GeoPoint geoPoint &&  geometry == geoPoint.geometry && point.equals(geoPoint.point);
+            return o instanceof GeoPoint geoPoint && geometry == geoPoint.geometry && point.equals(geoPoint.point);
         }
 
         @Override
@@ -97,16 +100,15 @@ public abstract class Intersectable {
                     '}';
         }
     }
+
     /**
      * Find the closest point to the ray's head.
+     *
      * @param ray The ray to run the function on.
      * @return The closest point which was found by GeoPoint format (geometry, point).
      */
-    public GeoPoint findClosestIntersection(Ray ray)
-    {
+    public GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> list = findGeoIntersections(ray);
-        if (list == null)
-            return null;
-        return ray.findClosestGeoPoint(list);
+        return list == null ? null : ray.findClosestGeoPoint(list);
     }
 }

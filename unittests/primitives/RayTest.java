@@ -21,21 +21,18 @@ class RayTest {
      * Tests the getPointTest function in Ray class.
      */
     @Test
-    void getPointTest() {
+    void testGetPoint() {
+        Ray ray = new Ray(new Point(1, 2, 3), new Vector(1, 0, 0));
 
         // ============ Equivalence Partitions Tests ==============
-        // TC01: the vector of the ray is positive
-        Vector v = new Vector(0, 0, 1);
-        Ray r = new Ray(ZERO_POINT, v);
-        assertEquals(new Point(0., 0., 2.), r.getPoint(2), "TC01: the function getPoint(t) failed");
+        // TC01: The point is on the other way of the ray
+        assertEquals(new Point(0, 2, 3), ray.getPoint(-1), "ERROR: getPoint() does not return the correct point");
+        // TC02: The point is ahead of the ray
+        assertEquals(new Point(2, 2, 3), ray.getPoint(1), "ERROR: getPoint() does not return the correct point");
 
-        // TC02: the vector of the ray is negative
-        assertEquals(new Point(0., 0., -2.), r.getPoint(-2), "TC01: the function getPoint(t) failed");
-
-        // =============== Boundary Values Tests ==================
-        // TC11: parameter is 0
-        assertEquals(ZERO_POINT, r.getPoint(0), "TC01: the function getPoint(t) failed");
-
+        // ============ boundary values tests ==================
+        // TC03: The point is on the ray
+        assertEquals(new Point(1, 2, 3), ray.getPoint(0), "ERROR: getPoint() does not return the correct point");
     }
 
     /**
@@ -43,7 +40,6 @@ class RayTest {
      */
     @Test
     void findClosestPointTest() {
-
         Ray ray = new Ray(ZERO_POINT, new Vector(1, 0, 0));
         Point a = new Point(8, 0, 0);
         Point b = new Point(2, 0, 0);

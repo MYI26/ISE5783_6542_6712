@@ -57,6 +57,7 @@ public class Tube extends RadialGeometry {
                 ", radius=" + radius +
                 '}';
     }
+
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         return null;

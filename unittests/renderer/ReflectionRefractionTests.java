@@ -3,27 +3,29 @@
  */
 package renderer;
 
-import static java.awt.Color.*;
-
-import geometries.Plane;
-import org.junit.jupiter.api.Test;
-
 import geometries.Sphere;
 import geometries.Triangle;
-import lighting.*;
+import lighting.AmbientLight;
 import lighting.SpotLight;
+import org.junit.jupiter.api.Test;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
-/** Tests for reflection and transparency functionality, test for partial
+import static java.awt.Color.*;
+
+/**
+ * Tests for reflection and transparency functionality, test for partial
  * shadows
  * (with transparency)
- * @author dzilb */
+ *
+ * @author dzilb
+ */
 public class ReflectionRefractionTests {
-    private Scene scene = new Scene("Test scene");
+    private final Scene scene = new Scene("Test scene");
 
-    /** Produce a picture of a sphere lighted by a spot light */
+    /**
+     * Produce a picture of a sphere lighted by a spot-light
+     */
     @Test
     public void twoSpheres() {
         Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
@@ -44,12 +46,11 @@ public class ReflectionRefractionTests {
                 .writeToImage();
     }
 
-    /** Produce a picture of a sphere lighted by a spot light */
+    /**
+     * Produce a picture of a sphere lighted by a spot-light
+     */
     @Test
     public void twoSpheresOnMirrors() {
-        Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setVPSize(2500, 2500).setVPDistance(10000); //
-
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
         scene.geometries.add( //
@@ -70,16 +71,20 @@ public class ReflectionRefractionTests {
         scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point(-750, -750, -150), new Vector(-1, -1, -4)) //
                 .setKl(0.00001).setKq(0.000005));
 
-        ImageWriter imageWriter = new ImageWriter("reflectionTwoSpheresMirrored", 500, 500);
-        camera.setImageWriter(imageWriter) //
+        new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setVPSize(2500, 2500).setVPDistance(10000) //
+                .setImageWriter(new ImageWriter("reflectionTwoSpheresMirrored", 500, 500)) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //
+                //.printGrid(50, new Color(YELLOW))
                 .writeToImage();
     }
 
-    /** Produce a picture of a two triangles lighted by a spot light with a
+    /**
+     * Produce a picture of two triangles lighted by a spot-light with a
      * partially
-     * transparent Sphere producing partial shadow */
+     * transparent Sphere producing partial shadow
+     */
     @Test
     public void trianglesTransparentSphere() {
         Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
@@ -100,83 +105,6 @@ public class ReflectionRefractionTests {
                 .setKl(4E-5).setKq(2E-7));
 
         ImageWriter imageWriter = new ImageWriter("refractionShadow", 600, 600);
-        camera.setImageWriter(imageWriter) //
-                .setRayTracer(new RayTracerBasic(scene)) //
-                .renderImage() //
-                .writeToImage();
-    }
-
-    @Test
-    public void fiveSpheresOnPlane() {
-        Camera camera = new Camera(new Point(0, 0, 5000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setVPSize(150, 150).setVPDistance(1000);
-
-        //scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
-
-        scene.geometries.add( //
-
-                new Sphere(new Point(-200, 100, -500), 100d).setEmission(new Color(0, 0, 255)) //
-                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(0)),
-                new Sphere(new Point(-100, 80, -400), 80d).setEmission(new Color(0, 30, 255)) //
-                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(0).setKt(0.6)),
-                new Sphere(new Point(0, 60, -180), 60d).setEmission(new Color(0, 60, 255)) //
-                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
-                new Sphere(new Point(100, 40, -120), 40d).setEmission(new Color(0, 90, 255)) //
-                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(0)),
-                new Sphere(new Point(200, 20, -100), 20d).setEmission(new Color(0, 120, 255)) //
-                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(0))
-        );
-
-        scene.geometries.add( //
-                new Plane(new Point(0, 0, -500), new Vector(0, 0, 1)).setEmission(new Color(230, 30, 55)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60))
-        );
-
-        //scene.lights.add( //
-                //new SpotLight(new Color(1000, 600, 0), new Point(-200, -200, 500), new Vector(-1, -1, -2)) //
-                        //.setKl(0.0004).setKq(0.0000006));
-
-        ImageWriter imageWriter = new ImageWriter("reflectionFiveSpheresOnPlane", 500, 500);
-        camera.setImageWriter(imageWriter) //
-                .setRayTracer(new RayTracerBasic(scene)) //
-                .renderImage() //
-                .writeToImage();
-    }
-
-    /**
-     * Produce a picture of 20 spheres with gradient from intense blue to flashy green, resting on a gray plane
-     * The light source is at a 45-degree angle from the normal vector of the plane.
-     */
-    @Test
-    public void twentySpheresOnPlane() {
-        Camera camera = new Camera(new Point(0, 0, 5000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setVPSize(500, 500).setVPDistance(3000);
-
-        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.1));
-
-        // Create gradient colors from blue to green
-        Color startColor = new Color(0, 0, 255); // Intense blue
-        Color endColor = new Color(0, 255, 0); // Flashy green
-        double colorStep = 1.0 / 20; // Divide the gradient into 20 steps
-
-        // Create 20 spheres with gradient colors
-        for (int i = 0; i < 20; i++) {
-            Color sphereColor = startColor.interpolate(startColor,endColor, i * colorStep);
-            double radius = 100 - i * 4; // Decrease the radius gradually
-            scene.geometries.add(new Sphere(new Point(0, 0, -radius - 100), radius)
-                    .setEmission(sphereColor).setMaterial(new Material()));
-        }
-
-        scene.geometries.add( //
-                new Plane(new Point(0, 0, 0), new Vector(0, 0, 1)).setEmission(new Color(100, 100, 100)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60))
-        );
-
-        scene.lights.add( //
-                new PointLight(new Color(1000, 600, 0), new Point(-1000, 1000, -2000))
-                        .setKl(0.0004).setKq(0.0000006));
-
-        ImageWriter imageWriter = new ImageWriter("gradientSpheresOnPlane", 800, 800);
         camera.setImageWriter(imageWriter) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //
