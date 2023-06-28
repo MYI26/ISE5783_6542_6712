@@ -13,7 +13,6 @@ import static primitives.Util.isZero;
 /**
  * A basic implementation of a ray tracer class.
  */
-
 public class RayTracerBasic extends RayTraceBase {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final Double3 INITIAL_K = Double3.ONE;
