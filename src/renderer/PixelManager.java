@@ -54,7 +54,7 @@ class PixelManager {
         if (print = printInterval != 0) System.out.printf(PRINT_FORMAT, 0d);
     }
 
-    /** Function for thread-safe manipulating of main follow up Pixel object - this
+    /** Function for thread-safe manipulating of main follows up Pixel object - this
      * function is critical section for all the threads, and the pixel manager data
      * is the shared data of this critical section.<br/>
      * The function provides next available pixel number each call.

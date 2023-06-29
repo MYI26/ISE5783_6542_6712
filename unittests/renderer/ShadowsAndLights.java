@@ -91,7 +91,7 @@ public class ShadowsAndLights {
         geometries.add(sphere5);
 
         Plane plane2 = (Plane) new Plane(new Point(0, 0, 0), new Vector(0, 1, 0))
-                .setEmission(new Color(0, 34, 43))
+                .setEmission(new Color(0, 34, 43))//
                 .setMaterial(new Material().setKd(0.3).setKs(0.3).setKt(0.).setShininess(200).setKr(0.4));
         geometries.add(plane2);
 
