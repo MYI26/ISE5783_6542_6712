@@ -89,6 +89,22 @@ public class Point {
     public double getX() {
         return this.xyz.d1;
     }
+    /**
+     * function that return the y coordinate of point
+     *
+     * @return the first coordinate of specifically point
+     */
+    public double getY() {
+        return this.xyz.d2;
+    }
+    /**
+     * function that return the z coordinate of point
+     *
+     * @return the first coordinate of specifically point
+     */
+    public double getZ() {
+        return this.xyz.d3;
+    }
 
     @Override
     public boolean equals(Object _obj) {

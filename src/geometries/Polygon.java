@@ -6,6 +6,7 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -100,8 +101,40 @@ public class Polygon extends Geometry {
 
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray _ray, double _maxDistance) {
-        return null;
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        //all the intersection between ray and plane
+        List<GeoPoint> intersections = plane.findGeoIntersections(ray, maxDistance);
+        if (intersections == null || intersections.isEmpty())
+            return null;
+
+        Point p0 = ray.getPoint(); //the start ray point
+        Vector v = ray.getDir();//rays direction
+
+//        double distance = intersections.get(0).point.distance(ray.getP0());
+//        //check that the intersection point is closer to ray origin
+//        if (alignZero(distance - maxDistance) > 0) {
+//            return null;
+//        }
+        Vector v1 = vertices.get(1).subtract(p0); //vector from the ray start point to the polygon vertices
+        Vector v2 = vertices.get(0).subtract(p0); //vector from the ray start point to the polygon vertices
+        double sign = v.dotProduct(v1.crossProduct(v2));
+        if (isZero(sign))//out of the polygon
+            return null;
+
+        boolean positive = sign > 0;
+
+        for (int i = vertices.size() - 1; i > 0; --i) { //foreach vertices
+            v1 = v2;
+            v2 = vertices.get(i).subtract(p0);//vector from the ray start point to the polygon vertices
+            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+            if (isZero(sign)) return null; //out of the polygon
+            if (positive != (sign > 0)) return null;//out of the polygon
+        }
+
+        intersections.get(0).geometry = this;
+
+        return intersections;
     }
+
 
 }
