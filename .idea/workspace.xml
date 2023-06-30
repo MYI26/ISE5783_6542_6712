@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="fb968e14-111d-4699-a1ec-c9f19ed6a039" name="Changes" comment="mini project 1 and beginning of mini project 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/PixelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/PixelManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Cylinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Cylinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Polygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Polygon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Tube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Tube.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/primitives/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/primitives/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Util.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unittests/renderer/ShadowsAndLights.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/ShadowsAndLights.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,33 +95,10 @@
       <recent name="primitives" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in ISE5783_6542_6712">
+  <component name="RunManager" selected="JUnit.mP1.mP1">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="ISE5783_6542_6712" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in ISE5783_6542_6712" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ISE5783_6542_6712" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShadowTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ISE5783_6542_6712" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="renderer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="renderer" />
-      <option name="MAIN_CLASS_NAME" value="renderer.ShadowTests" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -137,7 +118,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShadowsAndLights.shadowsAndLights" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShadowsAndLights.shadowsAndLights_NoUseAntiAliasing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShadowTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5783_6542_6712" />
       <extension name="coverage">
         <pattern>
@@ -147,13 +129,16 @@
       </extension>
       <option name="PACKAGE_NAME" value="renderer" />
       <option name="MAIN_CLASS_NAME" value="renderer.ShadowsAndLights" />
-      <option name="METHOD_NAME" value="shadowsAndLights" />
+      <option name="METHOD_NAME" value="shadowsAndLights_NoUseAntiAliasing" />
       <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="renderer.ShadowTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ShadowsAndLights.shadowsAndLights_UseAntiAliasing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShadowsAndLights" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5783_6542_6712" />
       <extension name="coverage">
         <pattern>
@@ -165,17 +150,55 @@
       <option name="MAIN_CLASS_NAME" value="renderer.ShadowsAndLights" />
       <option name="METHOD_NAME" value="shadowsAndLights_UseAntiAliasing" />
       <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="renderer.ShadowsAndLights" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mP1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShadowsAndLights.shadowsAndLights" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ISE5783_6542_6712" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="renderer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="renderer" />
+      <option name="MAIN_CLASS_NAME" value="renderer.mP1" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="renderer.ShadowsAndLights" />
+      <option name="METHOD_NAME" value="shadowsAndLights" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mP1.mP1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShadowsAndLights.shadowsAndLights_UseAntiAliasing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ISE5783_6542_6712" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="renderer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="renderer" />
+      <option name="MAIN_CLASS_NAME" value="renderer.mP1" />
+      <option name="METHOD_NAME" value="mP1" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in ISE5783_6542_6712" />
+        <item itemvalue="JUnit.mP1.mP1" />
+        <item itemvalue="JUnit.ShadowsAndLights.shadowsAndLights_NoUseAntiAliasing" />
         <item itemvalue="JUnit.ShadowsAndLights.shadowsAndLights_UseAntiAliasing" />
+        <item itemvalue="JUnit.mP1" />
         <item itemvalue="JUnit.ShadowsAndLights" />
-        <item itemvalue="JUnit.ShadowsAndLights.shadowsAndLights" />
-        <item itemvalue="JUnit.ShadowTests" />
       </list>
     </recent_temporary>
   </component>
@@ -328,14 +351,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687806729155</updated>
     </task>
-    <task id="LOCAL-00021" summary="mini project 1 and beginning of mini project 2">
-      <created>1687987050142</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1687987050142</updated>
-    </task>
-    <option name="localTasksCounter" value="22" />
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -370,8 +386,7 @@
     <MESSAGE value="chlav 6 bonus" />
     <MESSAGE value="CHLAVE 7 beginnig" />
     <MESSAGE value="correction of the stage 7's errors" />
-    <MESSAGE value="mini project 1 and beginning of mini project 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="mini project 1 and beginning of mini project 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="correction of the stage 7's errors" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
