@@ -1,13 +1,13 @@
-package multiThreading;
+package multiTreading;
 
 import java.util.Arrays;
 import java.util.MissingResourceException;
 
 /**
  * This class is handling a thread pool.
- * @param <T> the parameter for the thread's job
  *
- * @author
+ * @param <T> the parameter for the thread's job
+ * @author Yona and Aaron Mimoun
  */
 public class threadPool<T> {
     private static final int SPARE_THREADS = 2;
@@ -28,14 +28,9 @@ public class threadPool<T> {
     }
 
     /**
-     * Returns the number of threads.
-     */
-    public int getNumThreads() {
-        return _numThreads;
-    }
-
-    /**
      * Returns if the thread pool is currently using any threads.
+     *
+     * @return true if the thread pool is currently using any threads
      */
     public boolean isRunning() {
         if (_threads == null) {
@@ -47,9 +42,10 @@ public class threadPool<T> {
 
     /**
      * Chaining method for setting the number of threads the thread pool will use.
+     *
      * @param numThreads the number of threads
-     * @exception IllegalArgumentException when {@code numThreads} is greater or equals to 0
      * @return the current thread pool
+     * @throws IllegalArgumentException when {@code numThreads} is greater or equals to 0
      */
     public threadPool<T> setNumThreads(int numThreads) {
         if (numThreads <= 0) {
@@ -62,9 +58,10 @@ public class threadPool<T> {
 
     /**
      * Chaining method for setting the method in order to give the threads the parameter for their job.
+     *
      * @param getter implementation of {@link ParamGetter<T>}
-     * @exception NullPointerException when {@code getter} is {@code null}
      * @return the current thread pool
+     * @throws NullPointerException when {@code getter} is {@code null}
      */
     public threadPool<T> setParamGetter(ParamGetter<T> getter) {
         if (getter == null) {
@@ -78,9 +75,10 @@ public class threadPool<T> {
 
     /**
      * Chaining method for setting the threads' job.
+     *
      * @param target implementation of {@link Runnable<T>}
-     * @exception NullPointerException when {@code target} is {@code null}
      * @return the current thread pool
+     * @throws NullPointerException when {@code target} is {@code null}
      */
     public threadPool<T> setTarget(Runnable<T> target) {
         if (target == null) {
@@ -93,7 +91,8 @@ public class threadPool<T> {
 
     /**
      * Executes all the threads with the given getter and target.
-     * @exception UnsupportedOperationException when already executing or missing 1 of getter and target
+     *
+     * @throws UnsupportedOperationException when already executing or missing 1 of getter and target
      */
     public void execute() {
         if (isRunning()) {
@@ -113,7 +112,7 @@ public class threadPool<T> {
             for (int i = 0; i < _numThreads; ++i) {
                 _threads[i] = new Thread(() -> {
                     // running until target returns false
-                    while (_target.run(_getter.get()));
+                    while (_target.run(_getter.get())) ;
                 });
             }
 
@@ -121,8 +120,7 @@ public class threadPool<T> {
             for (Thread thread : _threads) {
                 thread.start();
             }
-        }
-        catch (MissingResourceException e) {
+        } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("ThreadPool didn't receive " + e.getClassName());
         }
     }
@@ -139,25 +137,28 @@ public class threadPool<T> {
         for (Thread thread : _threads) {
             try {
                 thread.join();
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
         _threads = null;
     }
 
     /**
      * The {@code ParamGetter<T>} should be implemented in order to give the thread pool's threads a parameter when they start a new job.
+     *
      * @param <T> the type of the parameter to give the threads
      */
     public interface ParamGetter<T> {
-        T get();
+        T get(); // Recovers the return value of the get() method
     }
 
     /**
      * The {@code Runnable<T>} should be implemented in order the thread pool's threads to run with a given parameter.
      * If returns true, the thread will continue to the next job. Else, the thread will stop and die.
+     *
      * @param <T> the type of the parameter the method will get
      */
     public interface Runnable<T> {
-        boolean run(T param);
+        boolean run(T param); // Executes a task using the specified parameter and returns a boolean indicating if the task was completed successfully
     }
 }

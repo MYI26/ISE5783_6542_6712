@@ -1,127 +1,103 @@
 package renderer;
-
 import primitives.*;
-import multiThreading.threadPool;
-
+import static primitives.Util.*;
+import multiTreading.threadPool;
+import static java.lang.System.out;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.MissingResourceException;
-import java.util.function.BiConsumer;
-import java.util.stream.IntStream;
-
-import static primitives.Util.*;
-
-import static primitives.Util.isZero;
 
 /**
- * This class represents a camera in 3D space.
+ * Camera class represents the camera through which we see the scene.
  */
 public class Camera {
-    private Point p0;
-    private Vector vTo, vUp, vRight;
-    private double height, width, distance;
-    private ImageWriter imageWriter;
-    private RayTraceBase rayTracer;
-    private boolean useAntiAliasing = false;
-    private int numOfRays = 9;       // cast 81 rays in real
-    // private boolean threadedRendering = false;
-    private PixelManager pixelManager;
 
-    private threadPool<Pixel> threadPool = null;
     /**
-     * Next pixel of the scene
+     * The point of view of the camera.
      */
-    private Pixel nextPixel = null;
+    private final Point p0;
+
+    //The directions of the camera:
+    /**
+     * vUp - The "up" direction in the camera.
+     */
+    private final Vector vUp;
 
     /**
-     * Contractor for the camera object.
+     * vTo - The "to" direction in the camera, where the scene is.
+     */
+    private final Vector vTo;
+
+    /**
+     * vRight - The "right" direction in the camera.
+     */
+    private final Vector vRight;
+
+    // The attributes of the view plane:
+    /**
+     * The width of the view plane.
+     */
+    private double width;
+
+    /**
+     * The height of the view plane.
+     */
+    private double height;
+
+    /**
+     * The distance between the p0 and the view plane (in the direction of vTo).
+     */
+    private double distance;
+
+    private ImageWriter imageWriter;
+
+    private RayTraceBase rayTracer;
+
+
+    /**
+     * Constructs an instance of Camera with point and to and up vectors.
      *
-     * @param p0  - Point to set the p0 of the camera.
-     * @param vTo - Vector to set the vTo of the camera.
-     * @param vUp - Vector to set the vUp of the camera.
+     * @param p0  The point of view of the camera.
+     * @param vTo The "to" direction of the camera, where the scene is.
+     * @param vUp The "up" direction of the camera.
      */
     public Camera(Point p0, Vector vTo, Vector vUp) {
-        if (!isZero(vUp.dotProduct(vTo))) {
-            throw new IllegalArgumentException("vUp and vTo must be vertical");
-        }
+        if (!(vUp.dotProduct(vTo) == 0))
+            throw new IllegalArgumentException("vTo and vUp have to be orthogonal!!!");
         this.p0 = p0;
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
         this.vRight = vTo.crossProduct(vUp).normalize();
     }
 
-    //region Getters
     /**
-     * The function returns the point of the camera
+     * init the image writer
      *
-     * @return point on the camera.
+     * @param imageWriter The imageWriter to set.
+     * @return The current instance (Builder pattern).
      */
-    public Point getP0() {
-        return p0;
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
     }
 
     /**
-     * The function returns the vTo vector of the camera
+     * init the ray tracer
      *
-     * @return vTo of camera.
+     * @param rayTracer The rayTracer to set.
+     * @return The current instance (Builder pattern).
      */
-    public Vector getVto() {
-        return vTo;
+    public Camera setRayTracer(RayTraceBase rayTracer) {
+        this.rayTracer = rayTracer;
+        return this;
     }
 
     /**
-     * The function returns the vUp vector of the camera
+     * init the view plane by the width and height
      *
-     * @return vUp of camera.
-     */
-    public Vector getVup() {
-        return vUp;
-    }
-
-    /**
-     * The function returns the vRight vector of the camera
-     *
-     * @return vRight of camera.
-     */
-    public Vector getVright() {
-        return vRight;
-    }
-
-    /**
-     * The function returns the height of the view plane.
-     *
-     * @return the height of the view plane.
-     */
-    public double getHeight() {
-        return height;
-    }
-
-    /**
-     * The function returns the width of the view plane.
-     *
-     * @return the width of the view plane.
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * The function returns the distance between the camera and the view plane.
-     *
-     * @return the distance between the camera and the view plane.
-     */
-    public double getDistance() {
-        return distance;
-    }
-    //endregion
-
-    //region Setters (Builder Pattern)
-    /**
-     *  The function sets the size of the view plane.
-     *
-     * @param width  - The new width of the view plane
-     * @param height - The new height of the view plane
-     * @return the updated camera with the new updated values.
+     * @param width  The number to set as the view plane's width.
+     * @param height The number to set as the view plane's height.
+     * @return The current instance (Builder pattern).
      */
     public Camera setVPSize(double width, double height) {
         this.width = width;
@@ -130,10 +106,10 @@ public class Camera {
     }
 
     /**
-     *  The function sets the distance between the camera and the view plane.
+     * init the distance of the view plane
      *
-     * @param distance - The new distance between the camera and the view plane
-     * @return the updated camera with the new updated values.
+     * @param distance The number to set as the distance between the p0 and the view plane.
+     * @return The current instance (Builder pattern).
      */
     public Camera setVPDistance(double distance) {
         this.distance = distance;
@@ -141,91 +117,89 @@ public class Camera {
     }
 
     /**
-     *  The function sets the imageWriter of the camera.
+     * Creates a ray that goes through a given pixel
      *
-     * @param imageWriter - The new imageWriter
-     * @return the updated camera with the new updated values.
+     * @param nX number of pixels on X axis in the view plane
+     * @param nY number of pixels on Y axis in the view plane
+     * @param j  X coordinate of the pixel
+     * @param i  Y coordinate of the pixel
+     * @return The ray from the camera to the pixel
      */
-    public Camera setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
-        return this;
+    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
+        Point imgCenter = p0.add(vTo.scale(distance));
+        double rY = height / nY;
+        double rX = width / nX;
+        double iY = -(i - (nY - 1d) / 2) * rY;
+        double jX = (j - (nX - 1d) / 2) * rX;
+        Point ijP = imgCenter;
+        if (jX != 0) ijP = ijP.add(vRight.scale(jX));
+        if (iY != 0) ijP = ijP.add(vUp.scale(iY));
+        Vector ijV = ijP.subtract(p0);
+        return new Ray(p0, ijV);
     }
 
-    /**
-     *  The function sets the rayTracer of the camera.
-     *
-     * @param rayTracer - The new rayTracer
-     * @return the updated camera with the new updated values.
-     */
-    public Camera setRayTracer(RayTraceBase rayTracer) {
-        this.rayTracer = rayTracer;
-        return this;
-    }
+
+    private final String RESOURCE = "Renderer resource not set";
+    private final String CAMERA_CLASS = "Camera";
+    private final String IMAGE_WRITER = "Image writer";
+    private final String CAMERA = "Camera";
+    final String RAY_TRACER = "Ray tracer";
 
     /**
-     *  The function sets the number of aliasing rays of the camera.
+     * For each pixel in the image, cast a ray and write the color of the pixel to the image
      *
-     * @param nRays - The new number of aliasing rays
-     * @return the updated camera with the new updated values.
-     */
-    public Camera setAliasingRays(int nRays) {
-        if (nRays < 1)
-            throw new IllegalArgumentException("The number of rays must be greater then 0!");
-        numOfRays = nRays;
-        return this;
-    }
-
-    /**
-     *  The function sets the enabling option for the anti aliasing of the camera.
-     *
-     * @param useAntiAliasing - The new use anti aliasing value
-     * @return the updated camera with the new updated values.
-     */
-    public Camera setUseAntiAliasing(boolean useAntiAliasing) {
-        this.useAntiAliasing = useAntiAliasing;
-        return this;
-    }
-    //endregion
-
-    //region Rendering methods
-    /**
-     * Renders the image pixel by pixel into the imageWriter
+     * @return The current instance (Builder pattern).
      */
     public Camera renderImage() {
         if (imageWriter == null)
-            throw new MissingResourceException("Missing image writer object!", "ImageWriter", "");
-
+            throw new MissingResourceException(RESOURCE, CAMERA_CLASS, IMAGE_WRITER);
+        if (p0 == null || vTo == null || vUp == null || vRight == null || width == 0 || height == 0 || distance == 0)
+            throw new MissingResourceException(RESOURCE, CAMERA_CLASS, CAMERA);
         if (rayTracer == null)
-            throw new MissingResourceException("Missing tracer object!", "RayTracerBase", "");
+            throw new MissingResourceException(RESOURCE, CAMERA_CLASS, RAY_TRACER);
 
-        int nX = imageWriter.getNx();
-        int nY = imageWriter.getNy();
+        final int nX = imageWriter.getNx();
+        final int nY = imageWriter.getNy();
 
-        pixelManager = new PixelManager(nY, nX, 100);
-        BiConsumer<Integer, Integer> writePixel = (j, i) -> {
-            Color color = calcAveragePixelColor(nX, nY, j, i);
-            imageWriter.writePixel(j, i, color);
-            pixelManager.pixelDone();
-        };
-
-        if ( threadPool != null) {
+        //rendering the image with multithreaded
+        if (threadPool != null) {
             nextPixel = new Pixel(0, 0);
             threadPool.execute();
 
             printPercentMultithreaded(); // blocks the main thread until finished and prints the progress
 
             threadPool.join();
-
-            IntStream.range(0, nY).parallel().forEach(i ->
-                    IntStream.range(0, nX).parallel().forEach(j -> {
-                        writePixel.accept(j, i);
-                    }));
             return this;
         }
-        else {
-            for (int i = 0; i < nY; i++) {
-                for (int j = 0; j < nX; j++) {
-                    writePixel.accept(j, i);
+
+        for (int i = 0; i < nY; ++i) {
+            out.println(i + "/" + nY);
+            for (int j = 0; j < nX; ++j) {
+                this.imageWriter.writePixel(j, i, calcAveragePixelColor(nX, nY, j, i));
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Create a grid [over the picture] in the pixel color map. given the grid's
+     * step and color.
+     *
+     * @param interval grid's interval
+     * @param color    grid's color
+     * @return The current instance (Builder pattern).
+     */
+    public Camera printGrid(int interval, Color color) {
+        if (imageWriter == null)
+            throw new MissingResourceException(RESOURCE, CAMERA_CLASS, IMAGE_WRITER);
+
+        final int nX = imageWriter.getNx();
+        final int nY = imageWriter.getNy();
+
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(j, i, color);
                 }
             }
         }
@@ -233,98 +207,65 @@ public class Camera {
     }
 
     /**
-     * Print a grid on the image
-     *
-     * @param interval The width & height of a grid cell in pixels
-     * @param color The color of the grid
+     * Produce a rendered image file
      */
-    public Camera printGrid(int interval, Color color) {
+    public void writeToImage() {
         if (imageWriter == null)
-            throw new MissingResourceException("Missing image writer object!", "ImageWriter", "");
+            throw new MissingResourceException(RESOURCE, CAMERA, IMAGE_WRITER);
 
-        int nX = imageWriter.getNx();
-        int nY = imageWriter.getNy();
-        for (int i = 0; i < nX; i++) {
-            for (int j = 0; j < nY; j++) {
-                if (i % interval == 0 || j % interval == 0)
-                    imageWriter.writePixel(i, j, color);
-            }
-        }
+        imageWriter.writeToImage();
+    }
+
+
+    /**
+     * turn on - off AntiAliasing
+     */
+    private boolean useAntiAliasing = false;
+
+    /**
+     * the number of rays
+     */
+    private int numOfRays = 10;
+
+    /**
+     * setter of antialiasing
+     *
+     * @param antialiasing if we use or not the anti-aliasing amelioration
+     * @return the camera
+     */
+    public Camera setUseAntiAliasing(boolean antialiasing) {
+        useAntiAliasing = antialiasing;
         return this;
     }
 
     /**
-     * Change the actual image file according to the imageWriter object
-     */
-    public void writeToImage() {
-        if (imageWriter == null)
-            throw new MissingResourceException("Missing image writer object!", "ImageWriter", "");
-
-        imageWriter.writeToImage();
-    }
-    //endregion
-
-    //region Rays methods
-    /** Constructs a ray for a given pixel in the view plane.
+     * setter of numOfRays
      *
-     * @param nX the number of pixels in the x-axis direction of the view plane
-     * @param nY the number of pixels in the y-axis direction of the view plane
-     * @param j the index of the pixel on the x-axis
-     * @param i the index of the pixel on the y-axis
-     * @return a Ray object for the given pixel
+     * @param numOfRays the number of rays
+     * @return the camera
      */
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
-        Point pc = p0.add(vTo.scale(distance));
-        double rY = height / nY;
-        double rX = width / nX;
-        Point pIJ = pc;
-        double jX = (j - (nX - 1d) / 2) * rX;
-        if (!Util.isZero(jX)) {
-            pIJ = pIJ.add(vRight.scale(jX));
-        }
-        double iY = -(i - (nY - 1d) / 2) * rY;
-        if (!Util.isZero(iY)) {
-            pIJ = pIJ.add(vUp.scale(iY));
-        }
-        Vector vIJ = pIJ.subtract(p0);
-        return new Ray(p0, vIJ);
+    public Camera setNumOfRays(int numOfRays) {
+        this.numOfRays = numOfRays;
+        return this;
     }
 
     /**
-     * Constructs a list of rays for a given pixel coordinate.
-     * If anti-aliasing is enabled, multiple rays are generated in random directions
-     * within each subpixel.
+     *  Generates a random vector within specified ranges.
      *
-     * @param nX The total number of pixels along the x-axis.
-     * @param nY The total number of pixels along the y-axis.
-     * @param j The x-coordinate of the current pixel.
-     * @param i The y-coordinate of the current pixel.
-     * @return A list of Ray objects representing the rays for the specified pixel coordinate.
+     * @param min The minimum value for the vector components
+     * @param max The maximum value for the vector components
+     * @return A randomly generated Vector object
      */
-    public List<Ray> constructRays(int nX, int nY, int j, int i) {
-        if (!useAntiAliasing)
-            return List.of(constructRayThroughPixel(nX, nY, j, i));
-
-        // Choosing the biggest scalar to scale the vectors.
-        double rY = height / (2 * nY * numOfRays * 0.05 * distance),
-                rX = width / (2 * nX * numOfRays * 0.05 * distance);
-
-        List<Ray> rays = new LinkedList<>();
-        // Constructing (rays * rays) rays in random directions.
-        for (int k = 0; k < numOfRays; k++) {
-            for (int l = 0; l < numOfRays; l++) {
-
-                // Construct a ray to the middle of the current subpixel.
-                Ray ray = constructRayThroughPixel(nX * numOfRays, nY * numOfRays, numOfRays * j + k, numOfRays * i + l);
-
-                // Create a random direction vector.
-                Vector rnd = getsRandomVector(rY, rX);
-
-                // Create a new ray with the new random vector to the ray.
-                rays.add(new Ray(ray.getPoint(), ray.getDir().add(rnd)));
-            }
+    private Vector getsRandomVector(double min, double max) {
+        boolean test = false;
+        Vector returned = null;
+        while (!test) {
+            try {
+                returned = vUp.scale(random(-min, min)).add(vRight.scale(random(-max, max)));
+                test = true;
+            } catch (IllegalArgumentException ignored) { }
         }
-        return rays;
+        return returned;
     }
 
     /**
@@ -340,43 +281,68 @@ public class Camera {
     private Color calcAveragePixelColor(int nX, int nY, int j, int i) {
         List<Ray> rays = constructRays(nX, nY, j, i);
         Color color = Color.BLACK;
-        for (Ray ray : rays)
+        for (Ray ray : rays) //for all the rays that lon has created for anti aliasing we will look for the color and sum
             color = color.add(rayTracer.traceRay(ray));
-        return color.reduce(rays.size());
+        return color.reduce(rays.size()); //the flow is divided by the number of rays
     }
 
     /**
-     * The function creates a ray from the camera to a pixel and finds the ray's color.
+     * Constructs a list of rays for a given pixel coordinate.
+     * If anti-aliasing is enabled, multiple rays are generated in random directions*
      *
-     * @param nX number of pixels on X axis in the view plane
-     * @param nY number of pixels on Y axis in the view plane
-     * @param j X coordinate of the pixel
-     * @param i Y coordinate of the pixel
-     * @return The color of the ray from the camera to the pixel
+     * @param nX The total number of pixels along the x-axis.
+     * @param nY The total number of pixels along the y-axis.
+     * @param j The x-coordinate of the current pixel.
+     * @param i The y-coordinate of the current pixel.
+     * @return A list of Ray objects representing the rays for the specified pixel coordinate.
      */
-    private Color castRay(int nX, int nY, int j, int i) {
-        Ray ray = constructRayThroughPixel(nX, nY, j, i);
-        return rayTracer.traceRay(ray);
-    }
-    //endregion
+    public List<Ray> constructRays(int nX, int nY, int j, int i) {
+        if (!useAntiAliasing)
+            return List.of(constructRayThroughPixel(nX, nY, j, i));
 
-    /**
-     *  Generates a random vector within specified ranges.
-     *
-     * @param min The minimum value for the vector components
-     * @param max The maximum value for the vector components
-     * @return A randomly generated Vector object
-     */
-    private Vector getsRandomVector(double min, double max) {
-        boolean successeeded = false;
-        Vector returned = null;
-        while (!successeeded) {
-            try {
-                returned = vUp.scale(random(-min, min)).add(vRight.scale(random(-max, max)));
-                successeeded = true;
-            } catch (IllegalArgumentException ignored) { }
+        // Choose the largest scalar to scale the vectors
+        double rY = height / (2 * nY * numOfRays * 0.05 * distance);
+        double rX = width / (2 * nX * numOfRays * 0.05 * distance);
+
+        List<Ray> rays = new LinkedList<>();
+        // Construction of (rays * rays) rays in random directions
+        for (int k = 0; k < numOfRays; k++) {
+            for (int l = 0; l < numOfRays; l++) {
+
+                // Build a radius in the middle of the current subpixel.
+                Ray ray = constructRayThroughPixel(nX * numOfRays, nY * numOfRays, numOfRays * j + k, numOfRays * i + l);
+
+                // Create a random direction vector in the target area
+                Vector rnd = getsRandomVector(rY, rX);
+
+                // Create a new radius with the help of the new random vector around the base targeted pixel, which is added to the list of rays
+                rays.add(new Ray(ray.getPoint(), ray.getDir().add(rnd)));
+            }
         }
-        return returned;
+        return rays;
+    }
+
+
+    private threadPool<Pixel> threadPool = null;
+
+    /**
+     * Next pixel of the scene, used for the multithreading
+     */
+    private Pixel nextPixel = null;
+
+    /**
+     * Helper class to represent a pixel to draw in a multithreading rendering.
+     */
+    private static class Pixel {
+        public int col, row;
+
+        public Pixel(int col, int row) {
+            this.col = col;
+            this.row = row;
+        }
+
+        public Pixel() {
+        }
     }
 
     /**
@@ -419,7 +385,6 @@ public class Camera {
         // notifies the main thread in order to print the percent
         notifyAll();
 
-
         Pixel result = new Pixel();
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
@@ -451,7 +416,7 @@ public class Camera {
 
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
-        this.imageWriter.writePixel(p.col, p.row, castRay(nX, nY, p.col, p.row));
+        this.imageWriter.writePixel(p.col, p.row, calcAveragePixelColor(nX, nY, p.col, p.row));
         return true; // continue the rendering
     }
 
@@ -470,8 +435,7 @@ public class Camera {
             synchronized (this) {
                 try {
                     wait();
-                } catch (InterruptedException e) {
-                }
+                }  catch (InterruptedException ignored) { }
             }
 
             int currentPixel = nextPixel.row * nX + nextPixel.col;
@@ -489,26 +453,12 @@ public class Camera {
      */
     private int printPercent(int currentPixel, int pixels, int lastPercent) {
         int percent = currentPixel * 100 / pixels;
-        if (percent > lastPercent) {
+        if (percent > lastPercent) {//if it is greater than the last time
             System.out.printf("%02d%%\n", percent);
-            System.out.flush();
+            System.out.flush(); //Empties the stream. This is done by writing all output bytes buffered into the underlying output stream, then emptying that stream.
             return percent;
         }
         return lastPercent;
     }
 
-    /**
-     * Helper class to represent a pixel to draw in a multithreading rendering.
-     */
-    private static class Pixel {
-        public int col, row;
-
-        public Pixel(int col, int row) {
-            this.col = col;
-            this.row = row;
-        }
-
-        public Pixel() {
-        }
-    }
 }

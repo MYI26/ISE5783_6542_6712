@@ -101,9 +101,9 @@ public class ShadowsAndLights {
         scene.lights.add(new DirectionalLight(new Color(WHITE), new Vector(0, 0, -1)));
 
         // Set up the camera and render the image
-        camera.setImageWriter(new ImageWriter("shadowsAndLights_UseAntiAliasing", 400, 400))
+        camera.setImageWriter(new ImageWriter("shadowsAndLights_UseAntiAliasing", 600, 600))
                 .setUseAntiAliasing(true)
-                .setAliasingRays(10)
+                .setNumOfRays(10)
                 .setMultithreading(4)
                 .renderImage()
                 .writeToImage();
@@ -183,7 +183,7 @@ public class ShadowsAndLights {
         scene.lights.add(new DirectionalLight(new Color(WHITE), new Vector(0, 0, -1)));
 
         // Set up the camera and render the image
-        camera.setImageWriter(new ImageWriter("shadowsAndLights_NoUseAntiAliasing", 400, 400))
+        camera.setImageWriter(new ImageWriter("shadowsAndLights_NoUseAntiAliasing", 600, 600))
                 .renderImage()
                 .setMultithreading(4)
                 .writeToImage();
