@@ -69,6 +69,7 @@ public abstract class Util {
     public static double random(double min, double max) {
         return Math.random() * (max - min) + min;
     }
+
     /**
      * Calculates the coefficients of the quadratic equation that describes the
      * intersection points between a ray and an axis-aligned cylinder.
@@ -78,7 +79,7 @@ public abstract class Util {
      * @param axisRay      The ray along the axis of the cylinder.
      * @param radius       The radius of the cylinder.
      * @return An array containing the coefficients of the quadratic equation
-     *         [a,b,c].
+     * [a,b,c].
      */
     public static double[] discriminantParam(Vector rayDirection, Point rayOrigin, Ray axisRay, double radius) {
         // Calculate the coefficients of the quadratic equation that describes the
@@ -89,7 +90,7 @@ public abstract class Util {
         double c = (rayOrigin.xyz.d1 - axisRay.getPoint().xyz.d1) * (rayOrigin.xyz.d1 - axisRay.getPoint().xyz.d1)
                 + (rayOrigin.xyz.d3 - axisRay.getPoint().xyz.d3) * (rayOrigin.xyz.d3 - axisRay.getPoint().xyz.d3)
                 - radius * radius;
-        return new double[] { a, b, c };
+        return new double[]{a, b, c};
     }
 
 }

@@ -5,8 +5,6 @@ import primitives.Ray;
 import primitives.Util;
 import primitives.Vector;
 
-import java.util.List;
-
 /**
  * this class represent cylinder defined by like tube (ray and radius) and also with height
  *

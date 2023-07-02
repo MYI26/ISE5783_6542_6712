@@ -89,6 +89,7 @@ public class Point {
     public double getX() {
         return this.xyz.d1;
     }
+
     /**
      * function that return the y coordinate of point
      *
@@ -97,6 +98,7 @@ public class Point {
     public double getY() {
         return this.xyz.d2;
     }
+
     /**
      * function that return the z coordinate of point
      *

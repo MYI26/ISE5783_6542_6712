@@ -1,11 +1,17 @@
 package renderer;
-import primitives.*;
-import static primitives.Util.*;
+
 import multiTreading.threadPool;
-import static java.lang.System.out;
-import java.util.List;
+import primitives.Color;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
 import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
+
+import static java.lang.System.out;
+import static primitives.Util.random;
 
 /**
  * Camera class represents the camera through which we see the scene.
@@ -250,7 +256,7 @@ public class Camera {
     }
 
     /**
-     *  Generates a random vector within specified ranges.
+     * Generates a random vector within specified ranges.
      *
      * @param min The minimum value for the vector components
      * @param max The maximum value for the vector components
@@ -263,7 +269,8 @@ public class Camera {
             try {
                 returned = vUp.scale(random(-min, min)).add(vRight.scale(random(-max, max)));
                 test = true;
-            } catch (IllegalArgumentException ignored) { }
+            } catch (IllegalArgumentException ignored) {
+            }
         }
         return returned;
     }
@@ -274,8 +281,8 @@ public class Camera {
      *
      * @param nX The total number of pixels along the x-axis.
      * @param nY The total number of pixels along the y-axis.
-     * @param j The y-coordinate of the current pixel.
-     * @param i The x-coordinate of the current pixel.
+     * @param j  The y-coordinate of the current pixel.
+     * @param i  The x-coordinate of the current pixel.
      * @return The average Color calculated from the traced rays.
      */
     private Color calcAveragePixelColor(int nX, int nY, int j, int i) {
@@ -292,8 +299,8 @@ public class Camera {
      *
      * @param nX The total number of pixels along the x-axis.
      * @param nY The total number of pixels along the y-axis.
-     * @param j The x-coordinate of the current pixel.
-     * @param i The y-coordinate of the current pixel.
+     * @param j  The x-coordinate of the current pixel.
+     * @param i  The y-coordinate of the current pixel.
      * @return A list of Ray objects representing the rays for the specified pixel coordinate.
      */
     public List<Ray> constructRays(int nX, int nY, int j, int i) {
@@ -435,7 +442,8 @@ public class Camera {
             synchronized (this) {
                 try {
                     wait();
-                }  catch (InterruptedException ignored) { }
+                } catch (InterruptedException ignored) {
+                }
             }
 
             int currentPixel = nextPixel.row * nX + nextPixel.col;
