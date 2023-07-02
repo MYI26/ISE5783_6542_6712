@@ -334,13 +334,13 @@ public class mP1 {private Scene scene = new Scene("Shadows and Lights");
         scene.lights.add(new PointLight(new Color(100,100,100),new Point(0, 299, 0)));
         scene.lights.add(new PointLight(new Color(100,100,100),new Point(200, 295, 2000)));
         scene.lights.add(new SpotLight(new Color(MAGENTA),new Point(275,139,-375),new Vector(0,-1,0)));
-        scene.lights.add(new SpotLight(new Color(79,250,11),new Point(275,250,875),new Vector(-0.5,-0.4,-1)));
-
 
 
         // Set up the camera and render the image
-        camera.setImageWriter(new ImageWriter("imgMP1", 1000, 1000))
+        camera.setImageWriter(new ImageWriter("imgMP1", 1500, 1000))
                 .setMultithreading(4)
+                .setUseAntiAliasing(true)
+                //.setAliasingRays(10)
                 .renderImage()
                 .writeToImage();
     }
